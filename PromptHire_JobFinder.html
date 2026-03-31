@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>PromptHire — AI Job Search Prompt Generator for Students & Freshers</title>
+<meta name="description" content="Generate powerful AI prompts to find jobs on LinkedIn, Naukri, Internshala & more. Built for Indian students, freshers & early-career professionals."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root{
+--bg:#07090f;--bg2:#0c1018;--bg3:#111722;--surface:#141b26;--card:#192030;
+--border:#1e2d45;--border2:#253548;--border3:#2e4060;
+--blue:#3b82f6;--blue-dark:#1d4ed8;--blue-light:#60a5fa;--blue-bg:rgba(59,130,246,.08);
+--amber:#f59e0b;--amber-light:#fbbf24;--amber-bg:rgba(245,158,11,.08);
+--green:#10b981;--green-light:#34d399;--green-bg:rgba(16,185,129,.08);
+--red:#ef4444;--red-light:#f87171;--red-bg:rgba(239,68,68,.08);
+--purple:#8b5cf6;--purple-light:#a78bfa;--purple-bg:rgba(139,92,246,.08);
+--teal:#06b6d4;--teal-bg:rgba(6,182,212,.08);
+--text:#e2e8f0;--text2:#94a3b8;--text3:#475569;--text4:#334155;
+--font-display:'DM Serif Display',Georgia,serif;
+--font-body:'Plus Jakarta Sans',system-ui,sans-serif;
+--font-mono:'JetBrains Mono',monospace;
+--r:10px;--r-sm:6px;--r-lg:14px;--r-xl:20px;
+--shadow:0 4px 24px rgba(0,0,0,.4);
+--glow:0 0 40px rgba(59,130,246,.15);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;overflow-x:hidden}
+::selection{background:rgba(59,130,246,.3);color:#fff}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border3);border-radius:4px}
+
+/* ── GRID BG ── */
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:50px 50px;opacity:.18;}
+.noise{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  opacity:.4;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(7,9,15,.85);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:60px;}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:700;font-family:var(--font-mono)}
+.nav-name{font-size:16px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.nav-name span{color:var(--blue-light)}
+.nav-badge{font-size:10px;font-family:var(--font-mono);background:var(--blue-bg);color:var(--blue-light);
+  border:1px solid rgba(59,130,246,.25);padding:2px 8px;border-radius:20px}
+.nav-links{display:flex;gap:20px;list-style:none}
+.nav-links a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
+.nav-links a:hover{color:var(--text)}
+.nav-gh{font-size:12px;font-weight:500;background:var(--surface);border:1px solid var(--border2);color:var(--text);
+  padding:6px 14px;border-radius:var(--r-sm);text-decoration:none;transition:all .15s;display:flex;align-items:center;gap:6px}
+.nav-gh:hover{border-color:var(--border3);background:var(--card)}
+.gh-icon{width:14px;height:14px;fill:currentColor}
+
+/* ── HERO ── */
+.hero{position:relative;z-index:1;text-align:center;padding:80px 2rem 60px;max-width:860px;margin:0 auto}
+.hero-chip{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-family:var(--font-mono);
+  background:var(--blue-bg);color:var(--blue-light);border:1px solid rgba(59,130,246,.2);
+  padding:5px 14px;border-radius:20px;margin-bottom:28px;animation:fadeUp .5s ease both}
+.hero-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green-light);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1.hero-title{font-family:var(--font-display);font-size:clamp(36px,6vw,64px);line-height:1.1;font-weight:400;
+  letter-spacing:-.5px;margin-bottom:20px;animation:fadeUp .5s .08s ease both}
+h1.hero-title em{font-style:italic;color:var(--blue-light)}
+.hero-sub{font-size:16px;color:var(--text2);max-width:560px;margin:0 auto 40px;line-height:1.7;animation:fadeUp .5s .15s ease both}
+.hero-stats{display:flex;justify-content:center;gap:36px;flex-wrap:wrap;animation:fadeUp .5s .22s ease both}
+.stat{text-align:center}
+.stat-n{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--text)}
+.stat-l{font-size:11px;color:var(--text3);margin-top:2px;font-family:var(--font-mono)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ── MAIN LAYOUT ── */
+.main{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 1.5rem 6rem}
+
+/* ── SECTION HEADS ── */
+.sec-head{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.sec-tag{font-size:10px;font-family:var(--font-mono);font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--surface);border:1px solid var(--border2);color:var(--text3);padding:3px 10px;border-radius:20px}
+.sec-title{font-size:16px;font-weight:600;color:var(--text)}
+
+/* ── USER TYPE PICKER ── */
+.user-types{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:40px}
+.ut{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;cursor:pointer;
+  transition:all .2s;position:relative;overflow:hidden}
+.ut::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .2s}
+.ut:hover{border-color:var(--border3);transform:translateY(-2px)}
+.ut.active{border-color:var(--blue);background:rgba(59,130,246,.06)}
+.ut.active::before{opacity:1}
+.ut-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;margin-bottom:12px}
+.ut-label{font-size:14px;font-weight:600;margin-bottom:4px}
+.ut-desc{font-size:12px;color:var(--text2);line-height:1.5}
+.ut-check{position:absolute;top:12px;right:12px;width:18px;height:18px;border-radius:50%;
+  border:1.5px solid var(--border3);display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ut.active .ut-check{background:var(--blue);border-color:var(--blue);color:#fff;font-size:10px}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;margin-bottom:16px}
+.card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.card-title .dot{width:6px;height:6px;border-radius:50%}
+
+/* ── FORM ELEMENTS ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid.g3{grid-template-columns:1fr 1fr 1fr}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg.full{grid-column:1/-1}
+label{font-size:12px;color:var(--text2);font-weight:500;display:flex;align-items:center;gap:6px}
+.lbl-tip{font-size:10px;color:var(--text3);font-weight:400;background:var(--surface);border:1px solid var(--border);
+  padding:1px 6px;border-radius:4px;font-family:var(--font-mono)}
+input,textarea,select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--r-sm);
+  color:var(--text);font-family:var(--font-body);font-size:13px;padding:9px 12px;width:100%;
+  outline:none;transition:border .15s;line-height:1.5}
+input::placeholder,textarea::placeholder{color:var(--text4)}
+input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
+textarea{resize:vertical;min-height:72px}
+select option{background:var(--bg3);color:var(--text)}
+
+/* ── CHIPS ── */
+.chips-wrap{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:12px;padding:5px 13px;border-radius:20px;border:1px solid var(--border2);
+  background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s;user-select:none;
+  font-family:var(--font-body)}
+.chip:hover{border-color:var(--border3);color:var(--text)}
+.chip.active{border-color:rgba(59,130,246,.5);background:var(--blue-bg);color:var(--blue-light);font-weight:500}
+.chip.c-amber.active{border-color:rgba(245,158,11,.5);background:var(--amber-bg);color:var(--amber-light)}
+.chip.c-green.active{border-color:rgba(16,185,129,.5);background:var(--green-bg);color:var(--green-light)}
+.chip.c-purple.active{border-color:rgba(139,92,246,.5);background:var(--purple-bg);color:var(--purple-light)}
+
+/* ── PROMPT TYPE TABS ── */
+.prompt-tabs{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.ptab{font-size:12px;font-weight:500;padding:7px 14px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
+.ptab:hover{border-color:var(--border3);color:var(--text)}
+.ptab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ── PLATFORM GRID ── */
+.platforms-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+.plat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;transition:all .15s;cursor:default}
+.plat:hover{border-color:var(--border3);transform:translateY(-1px)}
+.plat-name{font-size:13px;font-weight:600;margin-bottom:4px}
+.plat-for{font-size:11px;color:var(--text3);margin-bottom:6px;font-family:var(--font-mono)}
+.plat-tags{display:flex;flex-wrap:wrap;gap:4px}
+.ptag{font-size:10px;padding:2px 7px;border-radius:20px}
+.ptag-blue{background:var(--blue-bg);color:var(--blue-light)}
+.ptag-amber{background:var(--amber-bg);color:var(--amber-light)}
+.ptag-green{background:var(--green-bg);color:var(--green-light)}
+.ptag-purple{background:var(--purple-bg);color:var(--purple-light)}
+
+/* ── TIPS ── */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.tip-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.tip-icon{font-size:20px;margin-bottom:8px}
+.tip-title{font-size:13px;font-weight:600;margin-bottom:6px}
+.tip-body{font-size:12px;color:var(--text2);line-height:1.6}
+.tip-body strong{color:var(--text);font-weight:600}
+
+/* ── GENERATE BUTTON ── */
+.gen-wrap{margin-top:20px}
+.gen-btn{width:100%;padding:14px 24px;font-size:15px;font-weight:600;font-family:var(--font-body);
+  border:none;border-radius:var(--r);cursor:pointer;transition:all .2s;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;letter-spacing:.01em}
+.gen-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);
+  opacity:0;transition:opacity .2s}
+.gen-btn:hover::after{opacity:1}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 8px 32px rgba(59,130,246,.4)}
+.gen-btn:active{transform:scale(0.99)}
+
+/* ── OUTPUT ── */
+#output-section{display:none;margin-top:20px}
+.output-tabs{display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap}
+.otab{font-size:12px;font-weight:500;padding:6px 13px;border-radius:var(--r-sm);border:1px solid var(--border);
+  background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
+.otab:hover{color:var(--text)}
+.otab.active{background:var(--card);border-color:var(--border3);color:var(--text)}
+.out-box{background:#070c16;border:1px solid var(--border2);border-radius:var(--r);overflow:hidden}
+.out-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;
+  border-bottom:1px solid var(--border);background:var(--bg3)}
+.out-dots{display:flex;gap:5px}
+.out-dots span{width:10px;height:10px;border-radius:50%}
+.out-dots .d1{background:#ef4444}
+.out-dots .d2{background:#f59e0b}
+.out-dots .d3{background:#10b981}
+.out-filename{font-size:11px;font-family:var(--font-mono);color:var(--text3)}
+.copy-btn{font-size:11px;font-weight:500;font-family:var(--font-mono);padding:4px 12px;border-radius:4px;
+  border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
+.copy-btn:hover{border-color:var(--border3);color:var(--text)}
+.copy-btn.done{border-color:rgba(16,185,129,.5);color:var(--green-light);background:var(--green-bg)}
+.prompt-out{padding:20px;font-family:var(--font-mono);font-size:12.5px;line-height:1.85;color:#a8c0d8;
+  white-space:pre-wrap;word-break:break-word;max-height:520px;overflow-y:auto}
+
+/* ── HIDDEN PROMPT PANELS ── */
+.prompt-panel{display:none}
+.prompt-panel.show{display:block}
+
+/* ── DIVIDER ── */
+.section-gap{height:40px}
+.divider{height:1px;background:var(--border);margin:32px 0}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:28px 2rem;
+  text-align:center;color:var(--text3);font-size:12px}
+footer a{color:var(--text2);text-decoration:none}
+footer a:hover{color:var(--blue-light)}
+.footer-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:gap 12px}
+.footer-links{display:flex;gap:20px}
+
+/* ── HIGHLIGHTS ── */
+.hl-blue{color:var(--blue-light)}
+.hl-amber{color:var(--amber-light)}
+.hl-green{color:var(--green-light)}
+
+/* ── SKILL LEVEL SELECTOR ── */
+.skill-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.skill-row input{flex:1;min-width:180px}
+.lvl-btns{display:flex;gap:4px}
+.lvl-btn{font-size:10px;font-family:var(--font-mono);padding:3px 8px;border-radius:4px;
+  border:1px solid var(--border2);background:var(--surface);color:var(--text3);cursor:pointer;transition:all .1s}
+.lvl-btn.active-beg{border-color:rgba(16,185,129,.5);background:var(--green-bg);color:var(--green-light)}
+.lvl-btn.active-int{border-color:rgba(245,158,11,.5);background:var(--amber-bg);color:var(--amber-light)}
+.lvl-btn.active-adv{border-color:rgba(59,130,246,.5);background:var(--blue-bg);color:var(--blue-light)}
+.add-skill{font-size:12px;color:var(--text3);background:none;border:1px dashed var(--border);
+  padding:5px 12px;border-radius:var(--r-sm);cursor:pointer;transition:all .15s;font-family:var(--font-body);width:100%;margin-top:4px}
+.add-skill:hover{border-color:var(--border3);color:var(--text2)}
+.remove-skill{font-size:14px;color:var(--text4);background:none;border:none;cursor:pointer;padding:0 4px;
+  transition:color .1s;line-height:1}
+.remove-skill:hover{color:var(--red-light)}
+
+/* ── ACCORDION (TIPS) ── */
+.acc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;
+  transition:background .15s}
+.acc-head:hover{background:var(--card)}
+.acc-q{font-size:13px;font-weight:500;display:flex;align-items:center;gap:10px}
+.acc-icon{font-size:16px}
+.acc-arrow{font-size:10px;color:var(--text3);transition:transform .2s}
+.acc-body{font-size:13px;color:var(--text2);line-height:1.7;padding:0 18px 16px;display:none}
+.acc-body.open{display:block}
+.acc.open .acc-arrow{transform:rotate(180deg)}
+
+/* ── PROGRESS BAR ── */
+.profile-strength{margin-top:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r)}
+.ps-label{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:8px}
+.ps-pct{font-family:var(--font-mono);font-size:11px;color:var(--blue-light)}
+.ps-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.ps-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s ease}
+.ps-msg{font-size:11px;color:var(--text3);margin-top:6px;font-family:var(--font-mono)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:700px){
+  .form-grid,.form-grid.g3{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .hero{padding:50px 1.5rem 40px}
+  .hero-stats{gap:20px}
+  .footer-inner{flex-direction:column;gap:12px;text-align:center}
+  .footer-links{justify-content:center}
+  .user-types{grid-template-columns:1fr 1fr}
+}
+@media(max-width:440px){.user-types{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="noise"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">PH</div>
+    <span class="nav-name">Prompt<span>Hire</span></span>
+    <span class="nav-badge">v2.0</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#builder">Builder</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#tips">Fresher Tips</a></li>
+  </ul>
+  <a href="https://github.com/HarshJambukiya" target="_blank" class="nav-gh">
+    <svg class="gh-icon" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    GitHub
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-chip">AI-Powered Job Search · Built for Indian Students &amp; Freshers 2026</div>
+  <h1 class="hero-title">Find Your First Job<br/><em>Smarter, Not Harder</em></h1>
+  <p class="hero-sub">Generate powerful AI prompts for job search, cold outreach, interview prep, and more. Works with Claude, ChatGPT &amp; Perplexity.</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">6+</div><div class="stat-l">prompt types</div></div>
+    <div class="stat"><div class="stat-n">10+</div><div class="stat-l">platforms covered</div></div>
+    <div class="stat"><div class="stat-n">8K+</div><div class="stat-l">GenAI jobs in India</div></div>
+    <div class="stat"><div class="stat-n">Free</div><div class="stat-l">forever</div></div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<main class="main" id="builder">
+
+  <!-- STEP 1: USER TYPE -->
+  <div class="sec-head"><span class="sec-tag">Step 01</span><span class="sec-title">Who are you?</span></div>
+  <div class="user-types" id="user-types">
+    <div class="ut active" data-type="fresher" onclick="selectType(this)">
+      <div class="ut-check">✓</div>
+      <div class="ut-icon" style="background:rgba(16,185,129,.12)">🎓</div>
+      <div class="ut-label">Student / Fresher</div>
+      <div class="ut-desc">0–1 yr experience, final year or recent grad, looking for first job or internship</div>
+    </div>
+    <div class="ut" data-type="junior" onclick="selectType(this)">
+      <div class="ut-check"></div>
+      <div class="ut-icon" style="background:rgba(59,130,246,.12)">💼</div>
+      <div class="ut-label">Junior Professional</div>
+      <div class="ut-desc">1–3 yrs experience, want to switch or level up from current role</div>
+    </div>
+    <div class="ut" data-type="switch" onclick="selectType(this)">
+      <div class="ut-check"></div>
+      <div class="ut-icon" style="background:rgba(245,158,11,.12)">🔄</div>
+      <div class="ut-label">Career Switcher</div>
+      <div class="ut-desc">Switching domains (e.g., .NET → AI/ML), have experience but new to target field</div>
+    </div>
+    <div class="ut" data-type="remote" onclick="selectType(this)">
+      <div class="ut-check"></div>
+      <div class="ut-icon" style="background:rgba(139,92,246,.12)">🌐</div>
+      <div class="ut-label">Remote / Global</div>
+      <div class="ut-desc">Targeting remote-first startups, global companies, or USD-paying opportunities</div>
+    </div>
+  </div>
+
+  <!-- STEP 2: PROFILE -->
+  <div class="sec-head" style="margin-top:8px"><span class="sec-tag">Step 02</span><span class="sec-title">Build your profile</span></div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--blue)"></div>Basic Info</div>
+    <div class="form-grid">
+      <div class="fg"><label>Full Name</label><input id="f-name" placeholder="e.g. Harsh Jambukiya"/></div>
+      <div class="fg"><label>Email <span class="lbl-tip">optional</span></label><input id="f-email" placeholder="yourname@gmail.com" type="email"/></div>
+      <div class="fg"><label>Highest Education</label><input id="f-edu" placeholder="e.g. M.Tech CSE (AI/ML) – DDU, 2026"/></div>
+      <div class="fg"><label>CGPA / % <span class="lbl-tip">optional</span></label><input id="f-cgpa" placeholder="e.g. 7.2 CGPA or 72%"/></div>
+      <div class="fg full"><label>Work Experience <span class="lbl-tip">leave blank if none</span></label>
+        <input id="f-exp" placeholder="e.g. 9 months .NET Developer at Pravik IT Solutions, 4 months Angular at Vedikin Solutions"/></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--purple)"></div>Skills
+      <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">— set your level for each</span></div>
+    <div id="skills-list">
+      <div class="skill-row">
+        <input placeholder="Skill (e.g. Python)" oninput="calcStrength()"/>
+        <div class="lvl-btns">
+          <button class="lvl-btn active-beg" onclick="setLvl(this,'beg')" title="Beginner">Beg</button>
+          <button class="lvl-btn" onclick="setLvl(this,'int')" title="Intermediate">Int</button>
+          <button class="lvl-btn" onclick="setLvl(this,'adv')" title="Advanced">Adv</button>
+        </div>
+        <button class="remove-skill" onclick="removeSkill(this)">×</button>
+      </div>
+      <div class="skill-row">
+        <input placeholder="Skill (e.g. LangChain)" oninput="calcStrength()"/>
+        <div class="lvl-btns">
+          <button class="lvl-btn" onclick="setLvl(this,'beg')">Beg</button>
+          <button class="lvl-btn active-int" onclick="setLvl(this,'int')">Int</button>
+          <button class="lvl-btn" onclick="setLvl(this,'adv')">Adv</button>
+        </div>
+        <button class="remove-skill" onclick="removeSkill(this)">×</button>
+      </div>
+      <div class="skill-row">
+        <input placeholder="Skill (e.g. Machine Learning)" oninput="calcStrength()"/>
+        <div class="lvl-btns">
+          <button class="lvl-btn" onclick="setLvl(this,'beg')">Beg</button>
+          <button class="lvl-btn" onclick="setLvl(this,'int')">Int</button>
+          <button class="lvl-btn active-adv" onclick="setLvl(this,'adv')">Adv</button>
+        </div>
+        <button class="remove-skill" onclick="removeSkill(this)">×</button>
+      </div>
+    </div>
+    <button class="add-skill" onclick="addSkill()">+ Add skill</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--amber)"></div>Projects <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">— your biggest differentiators</span></div>
+    <div class="form-grid">
+      <div class="fg full"><label>Project 1 (flagship)</label><textarea id="p1" rows="2" placeholder="e.g. PDF Q&A System – LangChain, RAG pipeline, AstraDB (Cassandra vector DB) for semantic search. Deployed on Streamlit."></textarea></div>
+      <div class="fg full"><label>Project 2</label><textarea id="p2" rows="2" placeholder="e.g. Movie Recommendation System – CountVectorizer, cosine similarity, Streamlit UI. Achieved 85% precision@10."></textarea></div>
+      <div class="fg full"><label>Project 3 / Research <span class="lbl-tip">optional</span></label><textarea id="p3" rows="2" placeholder="e.g. M.Tech thesis – Personalized Text Summarization using MACSum dataset + Gemini API. Comparing 4 prompting strategies."></textarea></div>
+    </div>
+  </div>
+
+  <!-- STEP 3: PREFERENCES -->
+  <div class="sec-head"><span class="sec-tag">Step 03</span><span class="sec-title">Job Preferences</span></div>
+  <div class="card">
+    <div class="card-title"><div class="dot" style="background:var(--green)"></div>Target Roles <span style="font-size:11px;font-weight:400;color:var(--text3);margin-left:4px">— pick all that apply</span></div>
+    <div class="chips-wrap" id="roles-chips"></div>
+  </div>
+
+  <div class="card">
+    <div class="form-grid g3">
+      <div class="fg">
+        <label>Experience Level</label>
+        <select id="f-explvl">
+          <option value="Fresher (0 years)">Fresher (0 yrs)</option>
+          <option value="0–1 years" selected>0–1 years</option>
+          <option value="0–2 years">0–2 years</option>
+          <option value="Internship / Trainee">Internship</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Country</label>
+        <select id="f-country">
+          <option value="India" selected>India 🇮🇳</option>
+          <option value="USA">USA 🇺🇸</option>
+          <option value="UK">UK 🇬🇧</option>
+          <option value="Canada">Canada 🇨🇦</option>
+          <option value="Germany">Germany 🇩🇪</option>
+          <option value="Remote (anywhere)">Remote (anywhere)</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Preferred City</label>
+        <input id="f-city" placeholder="e.g. Bengaluru, Ahmedabad"/>
+      </div>
+    </div>
+    <div style="margin-top:14px">
+      <label style="margin-bottom:8px">Work Mode</label>
+      <div class="chips-wrap" id="mode-chips"></div>
+    </div>
+    <div style="margin-top:14px">
+      <label style="margin-bottom:8px">Platforms to Search</label>
+      <div class="chips-wrap" id="platform-chips"></div>
+    </div>
+    <div style="margin-top:14px">
+      <label>Additional Filters <span class="lbl-tip">optional</span></label>
+      <textarea id="f-extra" rows="2" placeholder="e.g. prefer funded startups, avoid BPO, salary ₹5–10 LPA, posted in last 7 days, no bond/training fee..."></textarea>
+    </div>
+  </div>
+
+  <!-- STEP 4: PROMPT TYPE -->
+  <div class="sec-head"><span class="sec-tag">Step 04</span><span class="sec-title">Choose prompt type</span></div>
+  <div class="card">
+    <div class="prompt-tabs" id="prompt-tabs">
+      <button class="ptab active" data-ptype="jobsearch" onclick="selectPType(this)">🔍 Job Search</button>
+      <button class="ptab" data-ptype="cold-email" onclick="selectPType(this)">📧 Cold Email</button>
+      <button class="ptab" data-ptype="linkedin-dm" onclick="selectPType(this)">🤝 LinkedIn DM</button>
+      <button class="ptab" data-ptype="resume-review" onclick="selectPType(this)">📄 Resume Review</button>
+      <button class="ptab" data-ptype="interview-prep" onclick="selectPType(this)">🎤 Interview Prep</button>
+      <button class="ptab" data-ptype="salary" onclick="selectPType(this)">💰 Salary Ask</button>
+    </div>
+
+    <!-- Prompt Type Descriptions -->
+    <div id="ptype-jobsearch" class="ptype-desc" style="font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px">
+      Generates a structured prompt you paste into any AI tool (Claude/ChatGPT with web search) to find live, matching job listings right now.
+    </div>
+    <div id="ptype-cold-email" class="ptype-desc" style="display:none;font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px">
+      Generates a prompt that writes a personalised cold outreach email to a hiring manager or founder — even when no job is posted.
+    </div>
+    <div id="ptype-linkedin-dm" class="ptype-desc" style="display:none;font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px">
+      Generates a short, compelling LinkedIn DM to send to recruiters, hiring managers, or alumni — personalised and non-generic.
+    </div>
+    <div id="ptype-resume-review" class="ptype-desc" style="display:none;font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px">
+      Generates a prompt for AI to give you ATS score, recruiter feedback, and rewrite suggestions for your resume for a specific role.
+    </div>
+    <div id="ptype-interview-prep" class="ptype-desc" style="display:none;font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px">
+      Generates a mock interview session prompt — technical, HR, and case questions tailored to your target role and skill level.
+    </div>
+    <div id="ptype-salary" class="ptype-desc" style="display:none;font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px 14px">
+      Generates a prompt for researching salary benchmarks and crafting a polite, confident salary expectation answer as a fresher.
+    </div>
+
+    <!-- Extra fields per type -->
+    <div id="extra-cold-email" style="display:none;margin-top:12px">
+      <div class="form-grid">
+        <div class="fg"><label>Target Company Name</label><input id="ce-company" placeholder="e.g. Sarvam AI"/></div>
+        <div class="fg"><label>Recipient's Role</label><input id="ce-role" placeholder="e.g. CTO, Engineering Lead, HR Manager"/></div>
+      </div>
+    </div>
+    <div id="extra-linkedin-dm" style="display:none;margin-top:12px">
+      <div class="form-grid">
+        <div class="fg"><label>Recipient's Name</label><input id="li-name" placeholder="e.g. Priya Sharma"/></div>
+        <div class="fg"><label>Their Role / Company</label><input id="li-role" placeholder="e.g. ML Lead at Zepto"/></div>
+      </div>
+    </div>
+    <div id="extra-interview-prep" style="display:none;margin-top:12px">
+      <div class="form-grid">
+        <div class="fg"><label>Company You're Interviewing At</label><input id="ip-company" placeholder="e.g. TCS Digital, Startup XYZ"/></div>
+        <div class="fg"><label>Interview Round</label>
+          <select id="ip-round">
+            <option>Technical Round 1</option>
+            <option>Technical Round 2</option>
+            <option>HR / Behavioural</option>
+            <option>System Design</option>
+            <option>Full Mock Interview</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Profile Strength -->
+    <div class="profile-strength" id="strength-bar" style="margin-top:16px">
+      <div class="ps-label">
+        <span style="font-size:12px;color:var(--text2)">Profile completeness</span>
+        <span class="ps-pct" id="ps-pct">0%</span>
+      </div>
+      <div class="ps-bar"><div class="ps-fill" id="ps-fill" style="width:0%"></div></div>
+      <div class="ps-msg" id="ps-msg">Fill in your name, education and at least one skill to get started.</div>
+    </div>
+
+    <div class="gen-wrap">
+      <button class="gen-btn" onclick="generateAll()">Generate Prompt ✦</button>
+    </div>
+  </div>
+
+  <!-- OUTPUT -->
+  <div id="output-section">
+    <div class="sec-head"><span class="sec-tag">Output</span><span class="sec-title">Your ready-to-use prompt</span></div>
+    <div class="out-box">
+      <div class="out-header">
+        <div class="out-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        <span class="out-filename" id="out-filename">job_search_prompt.txt</span>
+        <button class="copy-btn" id="copy-main" onclick="copyMain()">Copy</button>
+      </div>
+      <div class="prompt-out" id="main-prompt-out"></div>
+    </div>
+    <div style="font-size:12px;color:var(--text3);margin-top:8px;font-family:var(--font-mono)">
+      ↳ Paste into Claude (web search ON), ChatGPT, or Perplexity for live job results
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PLATFORM GUIDE -->
+  <div class="sec-head" id="platforms"><span class="sec-tag">Research</span><span class="sec-title">Which platform for what?</span></div>
+  <div class="platforms-grid" style="margin-bottom:32px">
+    <div class="plat">
+      <div class="plat-name" style="color:var(--blue-light)">LinkedIn</div>
+      <div class="plat-for">Best for: IT + Networking</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-blue">AI/ML Roles</span><span class="ptag ptag-blue">Startups</span><span class="ptag ptag-green">Referrals</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">70% more visibility with optimised profile. Recruiters search keywords — match job description terms exactly.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--amber-light)">Naukri</div>
+      <div class="plat-for">Best for: Volume + IT Services</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-amber">7.8cr resumes</span><span class="ptag ptag-amber">80% fill rate</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">Largest database in India. Enable "Resume Score Booster". Apply within 24 hrs of posting for 3× better response.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--green-light)">Internshala</div>
+      <div class="plat-for">Best for: Freshers + Internships</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-green">5,435 openings</span><span class="ptag ptag-green">Paid internships</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">+41% fresher hiring surge. Best for getting your first internship that converts to full-time. Free to apply.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--purple-light)">Wellfound</div>
+      <div class="plat-for">Best for: Startups + GenAI</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-purple">Startup-only</span><span class="ptag ptag-purple">Equity info</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">Direct apply to founders. Salary + equity shown upfront. Perfect for ML/AI roles at early-stage funded startups.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--teal)">Glassdoor</div>
+      <div class="plat-for">Best for: Salary intel + MNCs</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-blue">Salary data</span><span class="ptag ptag-amber">Reviews</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">6,319 GenAI engineer jobs listed. Use salary data to negotiate. Read interview reviews before applying.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--red-light)">Unstop / Cuvette</div>
+      <div class="plat-for">Best for: Contests + Early-stage</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-amber">Hackathons</span><span class="ptag ptag-green">PPOs</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">Win challenges = skip resume screening. Micro-internships recognised by 73% of Indian hiring managers as equivalent to traditional internships.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--amber-light)">Company Careers</div>
+      <div class="plat-for">Best for: Hidden market</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-amber">70% hidden roles</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">70% of jobs never get posted publicly. Check careers pages of your target companies directly. Cold email wins here.</div>
+    </div>
+    <div class="plat">
+      <div class="plat-name" style="color:var(--blue-light)">TCS / Infosys</div>
+      <div class="plat-for">Best for: Mass MNC hiring</div>
+      <div class="plat-tags">
+        <span class="ptag ptag-blue">40K freshers</span><span class="ptag ptag-green">₹9 LPA Prime</span>
+      </div>
+      <div style="font-size:11px;color:var(--text3);margin-top:8px">TCS NQT: 3 tiers up to ₹9 LPA. Infosys off-campus for M.Tech/BE. Both actively hiring in March 2026.</div>
+    </div>
+  </div>
+
+  <!-- FRESHER TIPS -->
+  <div class="sec-head" id="tips"><span class="sec-tag">Guide</span><span class="sec-title">Fresher survival guide — what actually works</span></div>
+
+  <div class="acc open">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-q"><span class="acc-icon">🎯</span>The 30-day action plan for freshers</div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body open">
+      <strong style="color:var(--text)">Week 1 — Set up:</strong> Optimise LinkedIn (add skills matching job descriptions, professional photo, 70-word summary). Set Naukri job alerts. Complete 2–3 skill courses on Coursera/NPTEL.<br><br>
+      <strong style="color:var(--text)">Week 2 — Apply smart:</strong> Apply to 10–15 targeted jobs daily across 3–4 platforms. Apply within 24 hours of posting (3× better shortlist rate). Tailor your resume for each role — don't spam one generic resume.<br><br>
+      <strong style="color:var(--text)">Week 3 — Outreach:</strong> Send 10–15 cold emails or LinkedIn DMs to hiring managers. Target companies that got Series A/B funding in past 3–6 months (check YourStory, Inc42). Mention their recent product/news in your message.<br><br>
+      <strong style="color:var(--text)">Week 4 — Follow-up &amp; build:</strong> Follow up on non-replies. Post one LinkedIn article about something you've built. Push your best project to GitHub with a proper README. This alone gets recruiter responses.
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-q"><span class="acc-icon">🚫</span>Mistakes freshers make (and how to avoid them)</div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <strong style="color:var(--red-light)">Mistake 1: Mass applying without tailoring.</strong> Sending the same resume to 100 jobs gets you 0 calls. Tailor skills section to each job description's keywords.<br><br>
+      <strong style="color:var(--red-light)">Mistake 2: Only using one platform.</strong> Research shows candidates using 5+ platforms get 3× more recruiter views. Don't rely solely on LinkedIn or Naukri.<br><br>
+      <strong style="color:var(--red-light)">Mistake 3: Ignoring the hidden market.</strong> 70% of jobs are never posted. Cold emailing directly to a founder or team lead often creates an opening that didn't exist before.<br><br>
+      <strong style="color:var(--red-light)">Mistake 4: No GitHub / portfolio.</strong> In 2026, 80% of employers prioritise skills over degrees. A live GitHub with documented projects replaces work experience at the fresher level.<br><br>
+      <strong style="color:var(--red-light)">Mistake 5: No follow-up.</strong> 80% of candidates never follow up. A polite follow-up email after 5–7 days doubles your response rate.
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-q"><span class="acc-icon">🤖</span>How to use AI tools for job searching (step by step)</div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <strong style="color:var(--text)">1. Generate your prompt</strong> using this tool above. Be specific about your skills and what makes you unique.<br><br>
+      <strong style="color:var(--text)">2. Open Claude.ai</strong> (free tier works) and enable Web Search in the tools panel. Paste the prompt. Claude searches live job boards and returns a structured table.<br><br>
+      <strong style="color:var(--text)">3. Use Perplexity.ai</strong> for real-time job searches — it searches the web by default. Paste the Job Search prompt there for even more results.<br><br>
+      <strong style="color:var(--text)">4. Use Cold Email / LinkedIn DM prompts</strong> in ChatGPT or Claude to write personalised outreach for specific companies. Always personalise by mentioning something specific about the company.<br><br>
+      <strong style="color:var(--text)">5. Use Interview Prep prompt</strong> before every interview. Tell Claude: "Act as a mock interviewer for [company]. Ask me technical + HR questions." Practice 2–3 full mock sessions.
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-q"><span class="acc-icon">💡</span>What to do when you have no experience (for complete freshers)</div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <strong style="color:var(--text)">Build in public.</strong> A GitHub portfolio, Substack article, or LinkedIn case study series can replace work experience in 2026. Recruiters respond to people who show, not just tell.<br><br>
+      <strong style="color:var(--text)">Target micro-internships.</strong> Platforms like Internshala, Cuvette, and Unstop offer short 1–3 month paid internships recognised by 73% of Indian hiring managers as equivalent to traditional internships.<br><br>
+      <strong style="color:var(--text)">Participate in hackathons.</strong> Winning or placing in a challenge on Unstop, Kaggle, or HackWithInfy fast-tracks you past resume screening entirely.<br><br>
+      <strong style="color:var(--text)">Contribute to open source.</strong> Even 2–3 small GitHub contributions to known libraries (LangChain, Scikit-learn, Hugging Face) makes your profile stand out dramatically.<br><br>
+      <strong style="color:var(--text)">For AI/ML specifically:</strong> A working RAG pipeline demo, a live Streamlit app, or a documented Kaggle notebook is worth more than a generic resume at the fresher level.
+    </div>
+  </div>
+
+  <div class="acc">
+    <div class="acc-head" onclick="toggleAcc(this)">
+      <div class="acc-q"><span class="acc-icon">📊</span>2026 India job market — what's hot right now</div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="acc-body">
+      <strong style="color:var(--green-light)">Hot roles:</strong> GenAI Developer, LLM Engineer, MLOps Engineer, AI Product Manager, Data Scientist, NLP Engineer, Python Backend Developer<br><br>
+      <strong style="color:var(--amber-light)">Booming sectors:</strong> HealthTech, FinTech (BFSI +29% growth), EdTech, GCCs (+80% fresher hiring), E-commerce<br><br>
+      <strong style="color:var(--blue-light)">Salary benchmarks (freshers):</strong> Entry-level AI/ML: ₹6–10 LPA | TCS Digital: ₹7 LPA | TCS Prime: ₹9 LPA | Infosys SP: ₹8–9.5 LPA | Startups: ₹4–8 LPA<br><br>
+      <strong style="color:var(--text)">Key skills recruiters pay premium for in 2026:</strong> LangChain/RAG, Prompt Engineering, MLOps, Fine-tuning LLMs, Vector DBs (Pinecone, Weaviate, AstraDB), FastAPI, Docker<br><br>
+      <strong style="color:var(--text)">Fresher hiring surge:</strong> January 2026 saw +21% overall hiring, freshers specifically +39% YoY. The market is actively hiring — the window is open.
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>Built by <a href="https://github.com/HarshJambukiya" target="_blank">Harsh Jambukiya</a> · M.Tech CSE (AI/ML), DDU · Open source &amp; free forever</span>
+    <div class="footer-links">
+      <a href="https://github.com/HarshJambukiya" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/harsh-jambukiya" target="_blank">LinkedIn</a>
+      <a href="mailto:harshjambukiya75@gmail.com">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CHIP DATA ──
+const chipDefs = {
+  roles:{el:'roles-chips',multi:true,color:'',
+    items:['ML Engineer','AI Engineer','Data Scientist','NLP Engineer','GenAI Developer','Python Developer','LLM Engineer','Data Analyst','Research Intern','Software Engineer'],
+    def:[0,1,2,3,4,5]},
+  mode:{el:'mode-chips',multi:true,color:'c-amber',
+    items:['Remote','Hybrid','On-site'],def:[0,1,2]},
+  platform:{el:'platform-chips',multi:true,color:'c-green',
+    items:['LinkedIn','Naukri','Internshala','Glassdoor','Wellfound','Unstop / Cuvette','Company Careers','AngelList'],
+    def:[0,1,2,3,4]}
+};
+const chipState={};
+Object.entries(chipDefs).forEach(([key,cfg])=>{
+  chipState[key]=new Set(cfg.def);
+  const el=document.getElementById(cfg.el);
+  cfg.items.forEach((label,i)=>{
+    const c=document.createElement('span');
+    c.className='chip'+(cfg.color?' '+cfg.color:'')+(cfg.def.includes(i)?' active':'');
+    c.textContent=label;
+    c.onclick=()=>{
+      if(cfg.multi){chipState[key].has(i)?chipState[key].delete(i):chipState[key].add(i);}
+      else{chipState[key].clear();chipState[key].add(i);}
+      el.querySelectorAll('.chip').forEach((ch,j)=>ch.classList.toggle('active',chipState[key].has(j)));
+      calcStrength();
+    };
+    el.appendChild(c);
+  });
+});
+
+// ── USER TYPE ──
+let currentType='fresher';
+function selectType(el){
+  document.querySelectorAll('.ut').forEach(u=>u.classList.remove('active'));
+  el.classList.add('active');
+  currentType=el.dataset.type;
+  document.querySelectorAll('.ut-check').forEach(c=>c.textContent='');
+  el.querySelector('.ut-check').textContent='✓';
+}
+
+// ── PROMPT TYPE ──
+let currentPType='jobsearch';
+function selectPType(el){
+  document.querySelectorAll('.ptab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  currentPType=el.dataset.ptype;
+  document.querySelectorAll('.ptype-desc').forEach(d=>d.style.display='none');
+  const desc=document.getElementById('ptype-'+currentPType);
+  if(desc)desc.style.display='block';
+  ['extra-cold-email','extra-linkedin-dm','extra-interview-prep'].forEach(id=>{
+    const e=document.getElementById(id);if(e)e.style.display='none';
+  });
+  const extraMap={'cold-email':'extra-cold-email','linkedin-dm':'extra-linkedin-dm','interview-prep':'extra-interview-prep'};
+  if(extraMap[currentPType]){const e=document.getElementById(extraMap[currentPType]);if(e)e.style.display='block';}
+  const files={'jobsearch':'job_search_prompt.txt','cold-email':'cold_email_prompt.txt','linkedin-dm':'linkedin_dm_prompt.txt','resume-review':'resume_review_prompt.txt','interview-prep':'interview_prep_prompt.txt','salary':'salary_prompt.txt'};
+  document.getElementById('out-filename').textContent=files[currentPType]||'prompt.txt';
+}
+
+// ── SKILLS ──
+function addSkill(){
+  const list=document.getElementById('skills-list');
+  const row=document.createElement('div');
+  row.className='skill-row';
+  row.innerHTML=`<input placeholder="Skill" oninput="calcStrength()"/>
+  <div class="lvl-btns">
+    <button class="lvl-btn" onclick="setLvl(this,'beg')">Beg</button>
+    <button class="lvl-btn" onclick="setLvl(this,'int')">Int</button>
+    <button class="lvl-btn" onclick="setLvl(this,'adv')">Adv</button>
+  </div>
+  <button class="remove-skill" onclick="removeSkill(this)">×</button>`;
+  list.appendChild(row);
+  row.querySelector('input').focus();
+}
+function removeSkill(btn){
+  const row=btn.closest('.skill-row');
+  if(document.querySelectorAll('.skill-row').length>1)row.remove();
+}
+function setLvl(btn,lvl){
+  const btns=btn.closest('.lvl-btns').querySelectorAll('.lvl-btn');
+  btns.forEach(b=>{b.className='lvl-btn';});
+  const cls={beg:'active-beg',int:'active-int',adv:'active-adv'};
+  btn.classList.add(cls[lvl]);
+}
+function getSkills(){
+  const rows=document.querySelectorAll('.skill-row');
+  const out=[];
+  rows.forEach(row=>{
+    const val=row.querySelector('input').value.trim();
+    if(!val)return;
+    const active=row.querySelector('.lvl-btn.active-beg,. lvl-btn.active-int,.lvl-btn.active-adv');
+    const lvlMap={'active-beg':'Beginner','active-int':'Intermediate','active-adv':'Advanced'};
+    let lvl='Intermediate';
+    if(active){const cls=[...active.classList].find(c=>lvlMap[c]);if(cls)lvl=lvlMap[cls];}
+    out.push(`${val} (${lvl})`);
+  });
+  return out;
+}
+
+// ── PROFILE STRENGTH ──
+function calcStrength(){
+  let score=0,msgs=[];
+  if(document.getElementById('f-name').value.trim())score+=15; else msgs.push('name');
+  if(document.getElementById('f-edu').value.trim())score+=15; else msgs.push('education');
+  const skills=getSkills();
+  if(skills.length>=1)score+=10;
+  if(skills.length>=3)score+=10;
+  if(skills.length>=5)score+=10;
+  const p1=document.getElementById('p1').value.trim();
+  const p2=document.getElementById('p2').value.trim();
+  if(p1)score+=15; else msgs.push('project 1');
+  if(p2)score+=10;
+  if(document.getElementById('p3').value.trim())score+=5;
+  if(chipState.roles&&chipState.roles.size>0)score+=5;
+  if(document.getElementById('f-exp').value.trim())score+=5;
+  score=Math.min(score,100);
+  document.getElementById('ps-pct').textContent=score+'%';
+  document.getElementById('ps-fill').style.width=score+'%';
+  let msg='';
+  if(score<40)msg='Add: '+msgs.slice(0,3).join(', ')+' to improve your prompt quality.';
+  else if(score<70)msg='Good start! Add more projects or skills for a stronger prompt.';
+  else if(score<90)msg='Strong profile. Add more details for the best results.';
+  else msg='Excellent profile completeness!';
+  document.getElementById('ps-msg').textContent=msg;
+}
+document.querySelectorAll('input,textarea').forEach(el=>el.addEventListener('input',calcStrength));
+calcStrength();
+
+// ── ACCORDIONS ──
+function toggleAcc(head){
+  const acc=head.closest('.acc');
+  const body=acc.querySelector('.acc-body');
+  acc.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ── TODAY ──
+function today(){return new Date().toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});}
+
+// ── HELPERS ──
+function g(id){return (document.getElementById(id)||{}).value||'';}
+function getSelected(key){return [...chipState[key]].map(i=>chipDefs[key].items[i]);}
+
+// ── PROMPT GENERATORS ──
+function buildProfile(){
+  const skills=getSkills();
+  const projects=[];
+  ['p1','p2','p3'].forEach(id=>{const v=g(id).trim();if(v)projects.push('  - '+v);});
+  const typeMap={fresher:'Student / Fresher (0–1 yr experience)',junior:'Junior Professional (1–3 yrs experience)',switch:'Career Switcher (domain change into AI/ML)',remote:'Remote/Global job seeker'};
+  return {
+    name:g('f-name')||'[Your Name]',
+    edu:g('f-edu')||'[Your Education]',
+    exp:g('f-exp')||'No prior work experience (fresher)',
+    skills:skills.length?skills.join(', '):'[Your skills]',
+    projects:projects.length?projects.join('\n'):'  - [Add your projects above]',
+    roles:getSelected('roles').join(', ')||'ML Engineer, AI Engineer',
+    expLvl:g('f-explvl')||'0–2 years',
+    modes:getSelected('mode').join(', ')||'Remote, Hybrid',
+    platforms:getSelected('platform').join(', ')||'LinkedIn, Naukri, Internshala',
+    country:g('f-country')||'India',
+    city:g('f-city'),
+    extra:g('f-extra'),
+    type:typeMap[currentType]||typeMap.fresher,
+    date:today()
+  };
+}
+
+function promptJobSearch(p){
+  const loc=p.city?`${p.city}, ${p.country}`:p.country;
+  return `You are a job search assistant with real-time web access.
+Today's date: ${p.date}
+
+════════════════════════════════════
+  CANDIDATE PROFILE
+════════════════════════════════════
+Name            : ${p.name}
+Profile Type    : ${p.type}
+Education       : ${p.edu}
+Work Experience : ${p.exp}
+
+Skills & Proficiency:
+  ${p.skills}
+
+Projects & Portfolio:
+${p.projects}
+
+════════════════════════════════════
+  JOB SEARCH PARAMETERS
+════════════════════════════════════
+Target Roles        : ${p.roles}
+Experience Required : ${p.expLvl}
+Work Mode           : ${p.modes}
+Location            : ${loc}
+Platforms to search : ${p.platforms}
+${p.extra?'Extra filters       : '+p.extra:''}
+
+════════════════════════════════════
+  YOUR TASK
+════════════════════════════════════
+1. Search the specified platforms RIGHT NOW for live, active job listings
+   matching this candidate's profile.
+
+2. Prioritise jobs posted in the LAST 7–14 DAYS.
+
+3. Return 8–10 results in this exact format:
+
+   ┌─────────────────────────────────────────────────────────┐
+   │ Job Title | Company | City/Mode | Exp | Posted | Match | Link │
+   └─────────────────────────────────────────────────────────┘
+
+4. For each listing:
+   ✓ Explain WHY this candidate matches — cite specific skills/projects.
+   ✓ Provide a real, working apply URL when possible.
+   ✗ If URL can't be confirmed → write: "Search manually on [platform]"
+   ✗ Do NOT fabricate job listings, companies, or URLs.
+
+5. After the table:
+   → List 3 companies actively hiring for these roles in ${p.country} right now,
+     with one reason WHY this candidate is a strong fit for each.
+   → Give 2 personalised application tips based on the candidate's strongest assets.`;
+}
+
+function promptColdEmail(p){
+  const co=g('ce-company')||'[Company Name]';
+  const rec=g('ce-role')||'the Hiring Manager';
+  return `Act as an expert career coach and professional copywriter.
+Today's date: ${p.date}
+
+Write a compelling cold outreach email for this candidate:
+
+CANDIDATE:
+- Name: ${p.name}
+- Background: ${p.type}
+- Education: ${p.edu}
+- Skills: ${p.skills}
+- Key project: ${g('p1')||'[candidate project]'}
+
+TARGET:
+- Company: ${co}
+- Recipient role: ${rec}
+- Job roles interested in: ${p.roles}
+
+INSTRUCTIONS:
+1. Subject line: Specific, curiosity-driving, under 9 words. NOT generic like "Job Application."
+2. Opening: Mention something specific about ${co} (their product, recent news, funding, etc.)
+   — the candidate must personalise this with actual research.
+3. Body (3–4 sentences): Connect ONE specific skill or project to ${co}'s actual work.
+4. CTA: Polite, one specific ask (15-min call, feedback on portfolio, etc.)
+5. Sign-off: Professional, include LinkedIn/GitHub URLs as placeholders.
+6. Tone: Confident but not arrogant. Human, not AI-sounding.
+7. Length: Under 200 words total.
+
+Also provide:
+→ A 3-bullet checklist of things to personalise before sending.
+→ A follow-up email template to send after 5–7 days of no response.`;
+}
+
+function promptLinkedInDM(p){
+  const liName=g('li-name')||'[Recruiter Name]';
+  const liRole=g('li-role')||'[Their Role at Company]';
+  return `Act as a LinkedIn messaging expert. Write a short, personalised LinkedIn DM.
+
+SENDER:
+- Name: ${p.name}
+- Profile: ${p.type}
+- Education: ${p.edu}
+- Top skill: ${getSkills()[0]||p.skills.split(',')[0]||'AI/ML'}
+- Best project: ${g('p1')||'[project]'}
+
+RECIPIENT:
+- Name: ${liName}
+- Role: ${liRole}
+
+TARGET ROLES: ${p.roles}
+
+INSTRUCTIONS:
+Write 3 versions of the DM — each under 75 words:
+
+Version A — "Warm opener" (focus on their work/company)
+Version B — "Project hook" (lead with a specific project/achievement)
+Version C — "Direct ask" (for freshers, be upfront and honest)
+
+Rules:
+✓ Start with their name
+✓ One genuine compliment about their work or company
+✓ One sentence about the candidate's most impressive thing
+✓ One clear, low-friction ask
+✗ No "I hope this message finds you well"
+✗ No generic copy-paste opener
+
+After the 3 versions, give 5 LinkedIn outreach tips specifically for freshers.`;
+}
+
+function promptResumeReview(p){
+  return `Act as a senior tech recruiter at a top Indian tech company AND an ATS system expert.
+
+Review this candidate's resume profile for roles: ${p.roles}
+
+CANDIDATE PROFILE TO REVIEW:
+- Name: ${p.name}
+- Education: ${p.edu}
+- Experience: ${p.exp}
+- Skills: ${p.skills}
+- Projects:
+${p.projects}
+
+TASK — Provide a structured review:
+
+1. ATS SCORE (out of 100)
+   - Keyword match % for target roles
+   - Which keywords are missing that recruiters search for
+   - Format/parsing issues to fix
+
+2. RECRUITER IMPRESSION (6-second scan test)
+   - What stands out immediately?
+   - What's buried that should be highlighted?
+   - What would make a recruiter skip this resume?
+
+3. SKILL GAPS for ${p.roles}
+   - Missing skills for target roles (ranked by importance)
+   - Which gaps are quick to fill (1–2 weeks) vs long-term?
+
+4. TOP 3 REWRITES
+   - Rewrite the 3 weakest bullet points from the projects section
+     using the STAR format + quantified impact where possible.
+
+5. OVERALL VERDICT
+   - Shortlist probability: Low / Medium / High
+   - Single most impactful change to make TODAY.`;
+}
+
+function promptInterviewPrep(p){
+  const co=g('ip-company')||'a tech company';
+  const round=g('ip-round')||'Technical Round';
+  return `Act as an expert technical interviewer at ${co}.
+Conduct a realistic mock ${round} for this candidate.
+
+CANDIDATE:
+- Profile: ${p.type}
+- Education: ${p.edu}
+- Skills: ${p.skills}
+- Projects:
+${p.projects}
+- Target role: ${p.roles.split(',')[0]||'ML Engineer'}
+
+MODE: Interactive mock interview
+
+Start the interview NOW. Ask questions one at a time and wait for answers.
+
+Question bank to draw from:
+[TECHNICAL]
+- Core concepts in ${p.skills.split(',').slice(0,3).join(', ')}
+- Project deep-dives (probe the projects listed above)
+- System design / ML system design (appropriate for ${p.expLvl} level)
+- DSA — arrays, trees, graphs (medium difficulty for ${p.type})
+- Coding: 1 live coding problem relevant to the role
+
+[HR / BEHAVIOURAL]
+- Tell me about yourself (give feedback on their answer)
+- Why this company / role?
+- Biggest technical challenge you solved?
+- Where do you see yourself in 3 years?
+
+[AFTER INTERVIEW]
+Provide:
+→ Overall performance score (out of 10) with reasoning
+→ Top 3 strengths demonstrated
+→ Top 3 areas to improve before real interview
+→ Recommended study resources for weak areas`;
+}
+
+function promptSalary(p){
+  const loc=p.city||p.country;
+  return `Act as a compensation expert and career coach for the Indian tech job market.
+
+CANDIDATE:
+- Profile: ${p.type}
+- Education: ${p.edu}
+- Skills: ${p.skills}
+- Target roles: ${p.roles}
+- Location: ${loc}
+
+TASK:
+
+1. SALARY BENCHMARKS (current, ${today()})
+   Provide salary ranges for each target role in ${loc}:
+   - Startup / early-stage: ₹X – ₹Y LPA
+   - Mid-size tech company: ₹X – ₹Y LPA
+   - MNC / Large IT: ₹X – ₹Y LPA
+   - Remote (USD-paying): $X – $Y / year
+   Include which skills command the highest premium.
+
+2. MY EXPECTED SALARY — What to say
+   Write 3 versions of how to answer "What's your salary expectation?" as a ${p.type}:
+   - Conservative (safe, likely to get the role)
+   - Confident (pushing for market rate)
+   - Negotiation-ready (for a competing offer scenario)
+
+3. NEGOTIATION TIPS for freshers
+   - When to negotiate (and when NOT to)
+   - How to negotiate a signing bonus vs base salary
+   - What non-salary benefits to negotiate for (ESOPs, WFH days, learning budget)
+
+4. RED FLAGS in offer letters for Indian freshers
+   - Training bonds / clawback clauses
+   - Gross vs net CTC confusion
+   - Variable pay traps`;
+}
+
+const promptBuilders={
+  'jobsearch':promptJobSearch,'cold-email':promptColdEmail,
+  'linkedin-dm':promptLinkedInDM,'resume-review':promptResumeReview,
+  'interview-prep':promptInterviewPrep,'salary':promptSalary
+};
+
+// ── GENERATE ──
+function generateAll(){
+  const p=buildProfile();
+  const fn=promptBuilders[currentPType]||promptJobSearch;
+  const promptText=fn(p);
+  document.getElementById('main-prompt-out').textContent=promptText;
+  const sec=document.getElementById('output-section');
+  sec.style.display='block';
+  document.getElementById('copy-main').textContent='Copy';
+  document.getElementById('copy-main').className='copy-btn';
+  setTimeout(()=>sec.scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+
+// ── COPY ──
+function copyMain(){
+  const text=document.getElementById('main-prompt-out').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copy-main');
+    btn.textContent='Copied!';btn.className='copy-btn done';
+    setTimeout(()=>{btn.textContent='Copy';btn.className='copy-btn';},2500);
+  });
+}
+</script>
+</body>
+</html>
