@@ -768,17 +768,26 @@ function setLvl(btn,lvl){
   btn.classList.add(cls[lvl]);
 }
 function getSkills(){
-  const rows=document.querySelectorAll('.skill-row');
-  const out=[];
-  rows.forEach(row=>{
-    const val=row.querySelector('input').value.trim();
-    if(!val)return;
-    const active=row.querySelector('.lvl-btn.active-beg,. lvl-btn.active-int,.lvl-btn.active-adv');
-    const lvlMap={'active-beg':'Beginner','active-int':'Intermediate','active-adv':'Advanced'};
-    let lvl='Intermediate';
-    if(active){const cls=[...active.classList].find(c=>lvlMap[c]);if(cls)lvl=lvlMap[cls];}
+  const rows = document.querySelectorAll('.skill-row');
+  const out = [];
+
+  rows.forEach(row => {
+    const val = row.querySelector('input').value.trim();
+    if (!val) return;
+
+    const active = row.querySelector('.lvl-btn.active');
+
+    let lvl = 'Intermediate';
+
+    if (active) {
+      if (active.classList.contains('active-beg')) lvl = 'Beginner';
+      else if (active.classList.contains('active-int')) lvl = 'Intermediate';
+      else if (active.classList.contains('active-adv')) lvl = 'Advanced';
+    }
+
     out.push(`${val} (${lvl})`);
   });
+
   return out;
 }
 
