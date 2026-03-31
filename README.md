@@ -6,7 +6,7 @@ An AI-powered job search assistant built for students & freshers to find jobs sm
 
 ## 🔥 Live Demo
 
-👉 https://harshjambukiya.github.io/PromptHire-JobSearch-Toolkit/
+👉 https://harshjambukiya.github.io/PromptHire-JobSearch-Toolkit/index.html
 
 ---
 
