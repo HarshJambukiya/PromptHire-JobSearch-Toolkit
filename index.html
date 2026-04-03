@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
@@ -9,7 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-:root{
+/* ── DARK THEME (default) ─────────────────────────────────── */
+[data-theme="dark"] {
 --bg:#07090f;--bg2:#0c1018;--bg3:#111722;--surface:#141b26;--card:#192030;
 --border:#1e2d45;--border2:#253548;--border3:#2e4060;
 --blue:#3b82f6;--blue-dark:#1d4ed8;--blue-light:#60a5fa;--blue-bg:rgba(59,130,246,.09);
@@ -21,20 +22,46 @@
 --orange:#f97316;--orange-light:#fb923c;--orange-bg:rgba(249,115,22,.09);
 --pink:#ec4899;--pink-light:#f472b6;--pink-bg:rgba(236,72,153,.09);
 --text:#e2e8f0;--text2:#94a3b8;--text3:#475569;--text4:#334155;
+--nav-bg:rgba(7,9,15,.88);
+--pout-text:#9fb6d0;
+--grid-opacity:.15;
+}
+
+/* ── LIGHT THEME ──────────────────────────────────────────── */
+[data-theme="light"] {
+--bg:#f0f4f8;--bg2:#e8edf3;--bg3:#dde4ed;--surface:#ffffff;--card:#f7f9fc;
+--border:#c8d5e8;--border2:#b0c0d8;--border3:#8fa5c0;
+--blue:#2563eb;--blue-dark:#1d4ed8;--blue-light:#1d4ed8;--blue-bg:rgba(37,99,235,.08);
+--amber:#d97706;--amber-light:#b45309;--amber-bg:rgba(217,119,6,.08);
+--green:#059669;--green-light:#047857;--green-bg:rgba(5,150,105,.08);
+--red:#dc2626;--red-light:#b91c1c;--red-bg:rgba(220,38,38,.08);
+--purple:#7c3aed;--purple-light:#6d28d9;--purple-bg:rgba(124,58,237,.08);
+--teal:#0891b2;--teal-light:#0e7490;--teal-bg:rgba(8,145,178,.08);
+--orange:#ea580c;--orange-light:#c2410c;--orange-bg:rgba(234,88,12,.08);
+--pink:#db2777;--pink-light:#be185d;--pink-bg:rgba(219,39,119,.08);
+--text:#0f172a;--text2:#334155;--text3:#64748b;--text4:#94a3b8;
+--nav-bg:rgba(240,244,248,.92);
+--pout-text:#1e3a5f;
+--grid-opacity:.06;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;overflow-x:hidden;transition:background .3s,color .3s}
+::selection{background:rgba(59,130,246,.3)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border3);border-radius:4px}
+
+:root {
 --font-d:'DM Serif Display',Georgia,serif;
 --font-b:'Plus Jakarta Sans',system-ui,sans-serif;
 --font-m:'JetBrains Mono',monospace;
 --r:10px;--rsm:6px;--rlg:14px;
 }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-b);background:var(--bg);color:var(--text);font-size:15px;line-height:1.6;overflow-x:hidden}
-::selection{background:rgba(59,130,246,.3)}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg2)}::-webkit-scrollbar-thumb{background:var(--border3);border-radius:4px}
 
-.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:52px 52px;opacity:.15}
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:52px 52px;opacity:var(--grid-opacity);transition:opacity .3s}
 
-nav{position:sticky;top:0;z-index:100;background:rgba(7,9,15,.88);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px}
+/* ── NAV ──────────────────────────────────────────────────── */
+nav{position:sticky;top:0;z-index:100;background:var(--nav-bg);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:58px;transition:background .3s,border-color .3s}
 .nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
 .nav-logo{width:30px;height:30px;background:linear-gradient(135deg,var(--blue),var(--purple));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:700;font-family:var(--font-m)}
 .nav-name{font-size:15px;font-weight:700;color:var(--text);letter-spacing:-.3px}
@@ -43,10 +70,22 @@ nav{position:sticky;top:0;z-index:100;background:rgba(7,9,15,.88);backdrop-filte
 .nav-links{display:flex;gap:18px;list-style:none}
 .nav-links a{font-size:13px;color:var(--text2);text-decoration:none;transition:color .15s}
 .nav-links a:hover{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:8px}
+
+/* ── THEME TOGGLE ─────────────────────────────────────────── */
+.theme-btn{
+  width:38px;height:38px;border-radius:8px;border:1px solid var(--border2);
+  background:var(--surface);color:var(--text2);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+  transition:all .2s;flex-shrink:0;
+}
+.theme-btn:hover{border-color:var(--border3);color:var(--text);background:var(--card)}
+
 .nav-gh{font-size:12px;font-weight:500;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:6px 14px;border-radius:var(--rsm);text-decoration:none;transition:all .15s;display:flex;align-items:center;gap:6px}
 .nav-gh:hover{border-color:var(--border3)}
 .gh-svg{width:14px;height:14px;fill:currentColor}
 
+/* ── HERO ─────────────────────────────────────────────────── */
 .hero{position:relative;z-index:1;text-align:center;padding:72px 1.5rem 52px;max-width:820px;margin:0 auto}
 .hero-chip{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-family:var(--font-m);background:var(--blue-bg);color:var(--blue-light);border:1px solid rgba(59,130,246,.2);padding:5px 14px;border-radius:20px;margin-bottom:24px;animation:fu .5s ease both}
 .hero-chip::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green-light);animation:pulse 2s infinite}
@@ -58,59 +97,58 @@ h1.hero-h em{font-style:italic;color:var(--blue-light)}
 .hs{text-align:center}.hs-n{font-family:var(--font-d);font-size:26px;color:var(--text)}.hs-l{font-size:10.5px;color:var(--text3);font-family:var(--font-m);margin-top:2px}
 @keyframes fu{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 
+/* ── MAIN ─────────────────────────────────────────────────── */
 .main{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:0 1.5rem 6rem}
 
 .sh{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .stag{font-size:10px;font-family:var(--font-m);font-weight:500;letter-spacing:.1em;text-transform:uppercase;background:var(--surface);border:1px solid var(--border2);color:var(--text3);padding:3px 10px;border-radius:20px}
 .stitle{font-size:15px;font-weight:600;color:var(--text)}
 
-/* USER TYPES */
+/* ── USER TYPE CARDS ─────────────────────────────────────── */
 .ut-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:11px;margin-bottom:36px}
-.ut{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:18px;cursor:pointer;transition:all .18s;position:relative}
+.ut{background:var(--card);border:2px solid var(--border);border-radius:var(--rlg);padding:18px;cursor:pointer;transition:all .18s;position:relative}
 .ut:hover{border-color:var(--border3);transform:translateY(-2px)}
-.ut.sel{border-color:var(--blue);background:rgba(59,130,246,.05)}
+.ut.sel{border-color:var(--blue);background:var(--blue-bg)}
 .ut-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:10px}
-.ut-label{font-size:13.5px;font-weight:600;margin-bottom:3px}
+.ut-label{font-size:13.5px;font-weight:600;margin-bottom:3px;color:var(--text)}
 .ut-desc{font-size:11.5px;color:var(--text2);line-height:1.5}
-.ut-chk{position:absolute;top:11px;right:11px;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--border3);display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .2s}
+.ut-chk{position:absolute;top:11px;right:11px;width:17px;height:17px;border-radius:50%;border:1.5px solid var(--border3);display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .2s;color:transparent}
 .ut.sel .ut-chk{background:var(--blue);border-color:var(--blue);color:#fff}
 
-/* JOB CATEGORY TABS */
+/* ── CATEGORY TABS ───────────────────────────────────────── */
 .cat-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
 .ct{font-size:12px;font-weight:600;padding:7px 16px;border-radius:var(--rsm);border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
 .ct:hover{border-color:var(--border3);color:var(--text)}
-.ct.sel{color:#fff;border-color:transparent}
-.ct-dot{width:7px;height:7px;border-radius:50%}
+.ct.sel{color:#fff !important;border-color:transparent !important}
+.ct-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-/* CARDS */
-.card{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:22px;margin-bottom:14px}
+/* ── CARDS ────────────────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:22px;margin-bottom:14px;transition:background .3s,border-color .3s}
 .ctitle{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px}
-.dot{width:6px;height:6px;border-radius:50%}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 
-/* FORM */
+/* ── FORM ─────────────────────────────────────────────────── */
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .fg3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .ff{display:flex;flex-direction:column;gap:5px}
 .ff.full{grid-column:1/-1}
 label{font-size:11.5px;color:var(--text2);font-weight:500;display:flex;align-items:center;gap:5px}
 .lt{font-size:9.5px;color:var(--text3);background:var(--surface);border:1px solid var(--border);padding:1px 6px;border-radius:4px;font-family:var(--font-m)}
-input,textarea,select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rsm);color:var(--text);font-family:var(--font-b);font-size:13px;padding:8px 11px;width:100%;outline:none;transition:border .15s;line-height:1.5}
+input,textarea,select{background:var(--bg3);border:1px solid var(--border2);border-radius:var(--rsm);color:var(--text);font-family:var(--font-b);font-size:13px;padding:8px 11px;width:100%;outline:none;transition:border .15s,background .3s,color .3s;line-height:1.5}
 input::placeholder,textarea::placeholder{color:var(--text4)}
 input:focus,textarea:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,130,246,.1)}
 textarea{resize:vertical}
 select option{background:var(--bg3)}
 
-/* CHIPS */
+/* ── CHIPS ────────────────────────────────────────────────── */
 .chips{display:flex;flex-wrap:wrap;gap:7px}
 .chip{font-size:11.5px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .13s;user-select:none}
 .chip:hover{border-color:var(--border3);color:var(--text)}
 .chip.on{border-color:rgba(59,130,246,.5);background:var(--blue-bg);color:var(--blue-light);font-weight:500}
 .chip.on.ca{border-color:rgba(245,158,11,.5);background:var(--amber-bg);color:var(--amber-light)}
 .chip.on.cg{border-color:rgba(16,185,129,.5);background:var(--green-bg);color:var(--green-light)}
-.chip.on.ct2{border-color:rgba(6,182,212,.5);background:var(--teal-bg);color:var(--teal-light)}
-.chip.on.co{border-color:rgba(249,115,22,.5);background:var(--orange-bg);color:var(--orange-light)}
 
-/* SKILL ROWS */
+/* ── SKILL ROWS ───────────────────────────────────────────── */
 .skrow{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
 .skrow input{flex:1;min-width:160px}
 .lbs{display:flex;gap:3px}
@@ -118,12 +156,12 @@ select option{background:var(--bg3)}
 .lb.b{border-color:rgba(16,185,129,.5);background:var(--green-bg);color:var(--green-light)}
 .lb.i{border-color:rgba(245,158,11,.5);background:var(--amber-bg);color:var(--amber-light)}
 .lb.a{border-color:rgba(59,130,246,.5);background:var(--blue-bg);color:var(--blue-light)}
-.rm{font-size:15px;color:var(--text4);background:none;border:none;cursor:pointer;padding:0 3px;transition:color .1s;line-height:1}
+.rm{font-size:15px;color:var(--text4);background:none;border:none;cursor:pointer;padding:0 3px;transition:color .1s;line-height:1;flex-shrink:0}
 .rm:hover{color:var(--red-light)}
 .add-sk{font-size:12px;color:var(--text3);background:none;border:1px dashed var(--border);padding:5px 12px;border-radius:var(--rsm);cursor:pointer;transition:all .15s;width:100%;font-family:var(--font-b);margin-top:3px}
 .add-sk:hover{border-color:var(--border3);color:var(--text2)}
 
-/* PROMPT TYPE TABS */
+/* ── PROMPT TYPE TABS ─────────────────────────────────────── */
 .ptabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:14px}
 .pt{font-size:12px;font-weight:500;padding:7px 13px;border-radius:var(--rsm);border:1px solid var(--border);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
 .pt:hover{border-color:var(--border3);color:var(--text)}
@@ -131,7 +169,7 @@ select option{background:var(--bg3)}
 
 .pdesc{font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 13px;line-height:1.6}
 
-/* STRENGTH BAR */
+/* ── STRENGTH BAR ─────────────────────────────────────────── */
 .sb{margin-top:14px;padding:11px 14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r)}
 .sb-row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:7px}
 .sb-pct{font-family:var(--font-m);font-size:11px;color:var(--blue-light)}
@@ -139,14 +177,14 @@ select option{background:var(--bg3)}
 .sb-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--purple));transition:width .4s}
 .sb-msg{font-size:10.5px;color:var(--text3);margin-top:5px;font-family:var(--font-m)}
 
-/* GEN BTN */
+/* ── GENERATE BUTTON ──────────────────────────────────────── */
 .gen-btn{width:100%;padding:13px;font-size:15px;font-weight:600;font-family:var(--font-b);border:none;border-radius:var(--r);cursor:pointer;transition:all .2s;background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;margin-top:16px;letter-spacing:.01em}
 .gen-btn:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(59,130,246,.4)}
 .gen-btn:active{transform:scale(.99)}
 
-/* OUTPUT */
+/* ── OUTPUT ───────────────────────────────────────────────── */
 #out-sec{display:none;margin-top:18px}
-.out-box{background:#060b14;border:1px solid var(--border2);border-radius:var(--r);overflow:hidden}
+.out-box{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--r);overflow:hidden}
 .out-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--border);background:var(--bg3)}
 .dots{display:flex;gap:5px}
 .dots span{width:10px;height:10px;border-radius:50%}
@@ -155,10 +193,10 @@ select option{background:var(--bg3)}
 .cp{font-size:11px;font-family:var(--font-m);padding:4px 11px;border-radius:4px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
 .cp:hover{color:var(--text)}
 .cp.ok{border-color:rgba(16,185,129,.5);color:var(--green-light);background:var(--green-bg)}
-.pout{padding:18px;font-family:var(--font-m);font-size:12px;line-height:1.88;color:#9fb6d0;white-space:pre-wrap;word-break:break-word;max-height:500px;overflow-y:auto}
+.pout{padding:18px;font-family:var(--font-m);font-size:12px;line-height:1.88;color:var(--pout-text);white-space:pre-wrap;word-break:break-word;max-height:500px;overflow-y:auto}
 .out-hint{font-size:11px;color:var(--text3);margin-top:7px;font-family:var(--font-m)}
 
-/* PLATFORM GRID */
+/* ── PLATFORM GRID ────────────────────────────────────────── */
 .plat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:10px;margin-bottom:32px}
 .plat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:13px;transition:all .15s}
 .plat:hover{border-color:var(--border3);transform:translateY(-1px)}
@@ -174,57 +212,61 @@ select option{background:var(--bg3)}
 .to{background:var(--orange-bg);color:var(--orange-light)}
 .plat-tip{font-size:11px;color:var(--text3);line-height:1.55}
 
-/* SECTION FILTER TABS */
+/* ── SECTION FILTER TABS ──────────────────────────────────── */
 .plat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
 .pf{font-size:11.5px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
 .pf:hover{color:var(--text)}
 .pf.sel{border-color:rgba(59,130,246,.4);background:var(--blue-bg);color:var(--blue-light)}
 .plat.hidden{display:none}
 
-/* ACCORDIONS */
+/* ── ACCORDIONS ───────────────────────────────────────────── */
 .acc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
 .acc-h{display:flex;align-items:center;justify-content:space-between;padding:13px 16px;cursor:pointer;transition:background .15s}
 .acc-h:hover{background:var(--card)}
-.acc-q{font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px}
+.acc-q{font-size:13px;font-weight:500;display:flex;align-items:center;gap:9px;color:var(--text)}
 .acc-arr{font-size:10px;color:var(--text3);transition:transform .2s}
 .acc-b{font-size:13px;color:var(--text2);line-height:1.7;padding:0 16px 14px;display:none}
 .acc-b.open{display:block}
 .acc.open .acc-arr{transform:rotate(180deg)}
 
-/* DIVIDER */
+/* ── DIVIDER ──────────────────────────────────────────────── */
 .divider{height:1px;background:var(--border);margin:28px 0}
 
+/* ── FOOTER ───────────────────────────────────────────────── */
 footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:24px 1.5rem;text-align:center;color:var(--text3);font-size:12px}
 footer a{color:var(--text2);text-decoration:none}
 footer a:hover{color:var(--blue-light)}
 .fi{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .flinks{display:flex;gap:18px}
 
-/* MNC GRID */
+/* ── MNC GRID ─────────────────────────────────────────────── */
 .mnc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:20px}
 .mnc-card{background:var(--card);border:1px solid var(--border);border-radius:var(--rlg);padding:16px;display:flex;flex-direction:column;gap:10px;transition:all .18s}
 .mnc-card:hover{border-color:var(--border3);transform:translateY(-2px)}
 .mnc-card.mhidden{display:none}
 .mnc-top{display:flex;align-items:center;gap:12px}
 .mnc-logo{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-family:var(--font-m);flex-shrink:0}
-.mnc-name{font-size:13.5px;font-weight:600;line-height:1.3}
+.mnc-name{font-size:13.5px;font-weight:600;line-height:1.3;color:var(--text)}
 .mnc-meta{font-size:11px;color:var(--text3);font-family:var(--font-m);margin-top:2px}
 .mnc-roles{font-size:12px;color:var(--green-light);background:var(--green-bg);border:1px solid rgba(16,185,129,.2);border-radius:var(--rsm);padding:6px 10px;font-family:var(--font-m)}
 .mnc-tip{font-size:12px;color:var(--text2);line-height:1.55;flex:1}
 .mnc-links{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto}
-.mnc-btn{font-size:11.5px;font-weight:500;padding:6px 13px;border-radius:var(--rsm);background:var(--blue);color:#fff;text-decoration:none;border:none;transition:background .15s;cursor:pointer}
+.mnc-btn{font-size:11.5px;font-weight:500;padding:6px 13px;border-radius:var(--rsm);background:var(--blue);color:#fff;text-decoration:none;border:none;transition:background .15s;cursor:pointer;display:inline-block}
 .mnc-btn:hover{background:var(--blue-dark)}
 .mnc-btn-outline{background:var(--surface);color:var(--text2);border:1px solid var(--border2)}
 .mnc-btn-outline:hover{background:var(--card);color:var(--text)}
-/* GOOGLE QUERY */
+
+/* ── GOOGLE QUERY ─────────────────────────────────────────── */
 .google-queries{display:flex;flex-direction:column;gap:8px}
 .gq-item{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rsm);padding:10px 14px;cursor:pointer;transition:all .15s}
 .gq-item:hover{border-color:var(--border3);background:var(--bg3)}
 .gq-icon{font-size:14px;flex-shrink:0}
 .gq-text{font-size:12.5px;color:var(--text2);flex:1;font-family:var(--font-m)}
-.gq-copy{font-size:10.5px;font-family:var(--font-m);color:var(--text3);border:1px solid var(--border2);padding:3px 9px;border-radius:4px;transition:all .15s;flex-shrink:0}
+.gq-copy{font-size:10.5px;font-family:var(--font-m);color:var(--text3);border:1px solid var(--border2);padding:3px 9px;border-radius:4px;transition:all .15s;flex-shrink:0;user-select:none}
 .gq-item:hover .gq-copy{border-color:var(--border3);color:var(--text2)}
 .gq-copy.done{color:var(--green-light);border-color:rgba(16,185,129,.4)}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
 @media(max-width:680px){
   .fg2,.fg3{grid-template-columns:1fr}
   .nav-links{display:none}
@@ -254,10 +296,13 @@ footer a:hover{color:var(--blue-light)}
     <li><a href="#mnc">MNC Careers</a></li>
     <li><a href="#tips">Tips</a></li>
   </ul>
-  <a href="https://github.com/HarshJambukiya" target="_blank" class="nav-gh">
-    <svg class="gh-svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-    GitHub
-  </a>
+  <div class="nav-right">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+    <a href="https://github.com/HarshJambukiya" target="_blank" class="nav-gh">
+      <svg class="gh-svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -275,7 +320,7 @@ footer a:hover{color:var(--blue-light)}
 
 <main class="main" id="builder">
 
-  <!-- STEP 1: WHO ARE YOU -->
+  <!-- STEP 1 -->
   <div class="sh"><span class="stag">Step 01</span><span class="stitle">Who are you?</span></div>
   <div class="ut-grid" id="ut-grid">
     <div class="ut sel" data-t="fresher" onclick="selUT(this)">
@@ -304,25 +349,24 @@ footer a:hover{color:var(--blue-light)}
     </div>
   </div>
 
-  <!-- STEP 2: JOB DOMAIN -->
+  <!-- STEP 2 -->
   <div class="sh"><span class="stag">Step 02</span><span class="stitle">Choose your job domain</span></div>
   <div class="card" style="padding:16px 22px">
     <div class="cat-tabs" id="cat-tabs">
-      <button class="ct sel" data-cat="all" style="background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-color:transparent" onclick="selCat(this)"><span class="ct-dot" style="background:#fff"></span>All Domains</button>
-      <button class="ct" data-cat="ml" style="--cc:#3b82f6" onclick="selCat(this)"><span class="ct-dot" style="background:#3b82f6"></span>AI / ML / Data</button>
-      <button class="ct" data-cat="web" style="--cc:#10b981" onclick="selCat(this)"><span class="ct-dot" style="background:#10b981"></span>Web Development</button>
-      <button class="ct" data-cat="devops" style="--cc:#f59e0b" onclick="selCat(this)"><span class="ct-dot" style="background:#f59e0b"></span>DevOps / Cloud</button>
-      <button class="ct" data-cat="it" style="--cc:#8b5cf6" onclick="selCat(this)"><span class="ct-dot" style="background:#8b5cf6"></span>IT / QA / Support</button>
-      <button class="ct" data-cat="mobile" style="--cc:#ec4899" onclick="selCat(this)"><span class="ct-dot" style="background:#ec4899"></span>Mobile / UI-UX</button>
-      <button class="ct" data-cat="cyber" style="--cc:#06b6d4" onclick="selCat(this)"><span class="ct-dot" style="background:#06b6d4"></span>Cyber / Security</button>
+      <button class="ct sel" data-cat="all" onclick="selCat(this)"><span class="ct-dot" style="background:#fff"></span>All Domains</button>
+      <button class="ct" data-cat="ml" onclick="selCat(this)"><span class="ct-dot" style="background:#3b82f6"></span>AI / ML / Data</button>
+      <button class="ct" data-cat="web" onclick="selCat(this)"><span class="ct-dot" style="background:#10b981"></span>Web Development</button>
+      <button class="ct" data-cat="devops" onclick="selCat(this)"><span class="ct-dot" style="background:#f59e0b"></span>DevOps / Cloud</button>
+      <button class="ct" data-cat="it" onclick="selCat(this)"><span class="ct-dot" style="background:#8b5cf6"></span>IT / QA / Support</button>
+      <button class="ct" data-cat="mobile" onclick="selCat(this)"><span class="ct-dot" style="background:#ec4899"></span>Mobile / UI-UX</button>
+      <button class="ct" data-cat="cyber" onclick="selCat(this)"><span class="ct-dot" style="background:#06b6d4"></span>Cyber / Security</button>
     </div>
-    <!-- Role chips per category -->
     <div id="roles-panel">
       <div class="chips" id="roles-chips"></div>
     </div>
   </div>
 
-  <!-- STEP 3: PROFILE -->
+  <!-- STEP 3 -->
   <div class="sh"><span class="stag">Step 03</span><span class="stitle">Build your profile</span></div>
   <div class="card">
     <div class="ctitle"><div class="dot" style="background:var(--blue)"></div>Basic Info</div>
@@ -356,7 +400,7 @@ footer a:hover{color:var(--blue-light)}
     </div>
   </div>
 
-  <!-- STEP 4: PREFERENCES -->
+  <!-- STEP 4 -->
   <div class="sh"><span class="stag">Step 04</span><span class="stitle">Job preferences</span></div>
   <div class="card">
     <div class="fg3" style="margin-bottom:14px">
@@ -366,12 +410,12 @@ footer a:hover{color:var(--blue-light)}
         <select id="f-country"><option value="India" selected>India 🇮🇳</option><option value="USA">USA 🇺🇸</option><option value="UK">UK 🇬🇧</option><option value="Canada">Canada 🇨🇦</option><option value="Germany">Germany 🇩🇪</option><option value="Remote (anywhere)">Remote 🌐</option></select></div>
       <div class="ff"><label>Preferred City <span class="lt">optional</span></label><input id="f-city" placeholder="e.g. Bengaluru, Pune, Remote"/></div>
     </div>
-    <div style="margin-bottom:14px"><label style="margin-bottom:7px">Work Mode</label><div class="chips" id="mode-chips"></div></div>
-    <div style="margin-bottom:14px"><label style="margin-bottom:7px">Platforms to search</label><div class="chips" id="plat-chips"></div></div>
+    <div style="margin-bottom:14px"><label style="margin-bottom:7px;display:block">Work Mode</label><div class="chips" id="mode-chips"></div></div>
+    <div style="margin-bottom:14px"><label style="margin-bottom:7px;display:block">Platforms to search</label><div class="chips" id="plat-chips"></div></div>
     <div class="ff"><label>Extra filters <span class="lt">optional</span></label><textarea id="f-extra" rows="2" placeholder="e.g. prefer startups, no bond/service agreement, salary ₹5–10 LPA, posted in last 7 days..."></textarea></div>
   </div>
 
-  <!-- STEP 5: PROMPT TYPE -->
+  <!-- STEP 5 -->
   <div class="sh"><span class="stag">Step 05</span><span class="stitle">Choose prompt type</span></div>
   <div class="card">
     <div class="ptabs" id="ptabs">
@@ -384,7 +428,6 @@ footer a:hover{color:var(--blue-light)}
     </div>
     <div class="pdesc" id="pt-desc">Finds 8–10 live job listings matching your profile right now across your chosen platforms.</div>
 
-    <!-- Extra inputs per type -->
     <div id="ex-email" style="display:none;margin-top:12px">
       <div class="fg2"><div class="ff"><label>Target Company</label><input id="ce-co" placeholder="e.g. Sarvam AI, Razorpay"/></div><div class="ff"><label>Recipient Role</label><input id="ce-role" placeholder="e.g. CTO, Engineering Lead, HR"/></div></div>
     </div>
@@ -396,7 +439,6 @@ footer a:hover{color:var(--blue-light)}
         <select id="iv-rnd"><option>Technical Round 1</option><option>Technical Round 2</option><option>HR / Behavioural</option><option>System Design</option><option>Full Mock Interview</option></select></div></div>
     </div>
 
-    <!-- Strength -->
     <div class="sb">
       <div class="sb-row"><span style="font-size:12px;color:var(--text2)">Profile completeness</span><span class="sb-pct" id="sb-pct">0%</span></div>
       <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
@@ -421,7 +463,7 @@ footer a:hover{color:var(--blue-light)}
 
   <div class="divider"></div>
 
-  <!-- PLATFORM GUIDE -->
+  <!-- PLATFORMS -->
   <div class="sh" id="platforms"><span class="stag">Research</span><span class="stitle">16+ platforms — which one for what?</span></div>
   <div class="plat-filter">
     <button class="pf sel" data-pf="all" onclick="filtPlat(this)">All</button>
@@ -432,135 +474,31 @@ footer a:hover{color:var(--blue-light)}
     <button class="pf" data-pf="govt" onclick="filtPlat(this)">Govt / Free</button>
   </div>
   <div class="plat-grid" id="plat-grid">
-
-    <div class="plat" data-pcat="general,tech">
-      <div class="plat-name" style="color:#60a5fa">LinkedIn</div>
-      <div class="plat-for">Best for: IT + Networking + Remote</div>
-      <div class="ptags"><span class="ptag tb">All domains</span><span class="ptag tg">Networking</span></div>
-      <div class="plat-tip">70% more visibility with optimised profile. 87% of recruiters search here. 660+ GenAI jobs listed right now. Update profile every Tuesday for max recruiter reach.</div>
-    </div>
-
-    <div class="plat" data-pcat="general">
-      <div class="plat-name" style="color:#fbbf24">Naukri.com</div>
-      <div class="plat-for">Best for: Volume + All IT roles</div>
-      <div class="ptags"><span class="ptag ta">7.8cr resumes</span><span class="ptag ta">80% fill rate</span></div>
-      <div class="plat-tip">Largest database in India. 8,000+ GenAI jobs, 1,000s of Web Dev & DevOps roles. Enable "Resume Score Booster". Apply within 24 hrs of posting for 3× shortlist rate.</div>
-    </div>
-
-    <div class="plat" data-pcat="fresher">
-      <div class="plat-name" style="color:#34d399">Internshala</div>
-      <div class="plat-for">Best for: Internships + Freshers</div>
-      <div class="ptags"><span class="ptag tg">5,435 openings</span><span class="ptag tg">+41% surge</span></div>
-      <div class="plat-tip">Best for first paid internship → full-time conversion. Covers Web Dev, ML, DevOps, Design, IT Support. Free to apply. PPO (pre-placement offers) common.</div>
-    </div>
-
-    <div class="plat" data-pcat="tech">
-      <div class="plat-name" style="color:#a78bfa">Wellfound (AngelList)</div>
-      <div class="plat-for">Best for: Startups + Equity roles</div>
-      <div class="ptags"><span class="ptag tp">Startup-only</span><span class="ptag tp">Equity shown</span></div>
-      <div class="plat-tip">Direct apply to founders. Salary + equity shown upfront. Perfect for AI/ML, Full Stack, DevOps at early-stage funded startups. No recruiter middleman.</div>
-    </div>
-
-    <div class="plat" data-pcat="general,tech">
-      <div class="plat-name" style="color:#22d3ee">Glassdoor</div>
-      <div class="plat-for">Best for: Salary intel + MNCs</div>
-      <div class="ptags"><span class="ptag tt">Salary data</span><span class="ptag tt">Reviews</span></div>
-      <div class="plat-tip">6,319 GenAI jobs + thousands of web/DevOps roles. Read interview reviews before applying. Use salary data to benchmark and negotiate confidently.</div>
-    </div>
-
-    <div class="plat" data-pcat="tech">
-      <div class="plat-name" style="color:#fb923c">Cutshort.io</div>
-      <div class="plat-for">Best for: Tech + Web Dev + DevOps</div>
-      <div class="ptags"><span class="ptag to">AI-matched</span><span class="ptag to">50+ DevOps roles</span></div>
-      <div class="plat-tip">AI-powered matching for tech roles. 3.5M+ curated tech profiles. Covers Frontend, Backend, Full Stack, DevOps, ML. Many offers within 48 hrs. Less noise than Naukri.</div>
-    </div>
-
-    <div class="plat" data-pcat="tech">
-      <div class="plat-name" style="color:#60a5fa">Hirist.tech</div>
-      <div class="plat-for">Best for: Premium tech + DevOps/SRE</div>
-      <div class="ptags"><span class="ptag tb">Tech-only</span><span class="ptag tb">Unicorns</span></div>
-      <div class="plat-tip">Exclusively IT/tech roles from top startups and unicorns (Dream11, Flipkart, Paytm, Swiggy). Strong for DevOps/SRE, Data Science, Software Dev. One-click apply + real-time tracking.</div>
-    </div>
-
-    <div class="plat" data-pcat="tech">
-      <div class="plat-name" style="color:#34d399">Instahyre</div>
-      <div class="plat-for">Best for: Product + Tech companies</div>
-      <div class="ptags"><span class="ptag tg">10K+ companies</span><span class="ptag tg">Google, Amazon</span></div>
-      <div class="plat-tip">AI-matching engine with 10,000+ top companies including Google, Amazon, Microsoft. Zero spam — only relevant verified listings. Strong for Web Dev, Product, IT roles. Privacy-focused.</div>
-    </div>
-
-    <div class="plat" data-pcat="fresher">
-      <div class="plat-name" style="color:#fb923c">Unstop / Cuvette</div>
-      <div class="plat-for">Best for: Hackathons → PPO → Jobs</div>
-      <div class="ptags"><span class="ptag to">Challenges</span><span class="ptag to">PPO route</span></div>
-      <div class="plat-tip">Win a challenge = skip resume screening entirely. Micro-internships recognised by 73% of Indian hiring managers. Best route for freshers with no work experience to break in.</div>
-    </div>
-
-    <div class="plat" data-pcat="fresher">
-      <div class="plat-name" style="color:#a78bfa">Freshersworld</div>
-      <div class="plat-for">Best for: 0 exp → first job</div>
-      <div class="ptags"><span class="ptag tp">Fresher-only</span><span class="ptag tp">Campus drives</span></div>
-      <div class="plat-tip">Exclusively for fresh graduates. Supports bulk campus drive applications, exam-based filters, and Govt/PSU listings. Perfect starting point if you have zero experience.</div>
-    </div>
-
-    <div class="plat" data-pcat="general">
-      <div class="plat-name" style="color:#fbbf24">Indeed India</div>
-      <div class="plat-for">Best for: Volume + Global roles</div>
-      <div class="ptags"><span class="ptag ta">Aggregator</span><span class="ptag ta">Global reach</span></div>
-      <div class="plat-tip">#1 job app worldwide. Aggregates listings from multiple sources. Good for Web Dev, IT Support, QA roles. Best for finding international or remote-global opportunities.</div>
-    </div>
-
-    <div class="plat" data-pcat="general">
-      <div class="plat-name" style="color:#f472b6">Foundit (Monster)</div>
-      <div class="plat-for">Best for: Mid-size companies + IT</div>
-      <div class="ptags"><span class="ptag" style="background:var(--pink-bg);color:var(--pink-light)">1–3 yr roles</span></div>
-      <div class="plat-tip">Formerly Monster India. Good coverage of IT support, testing/QA, and junior developer roles. Diverse industries. Skill assessments available to boost your profile.</div>
-    </div>
-
-    <div class="plat" data-pcat="general,fresher">
-      <div class="plat-name" style="color:#34d399">Apna</div>
-      <div class="plat-for">Best for: Fast entry-level + Local</div>
-      <div class="ptags"><span class="ptag tg">10M+ downloads</span><span class="ptag tg">Quick replies</span></div>
-      <div class="plat-tip">Verified employers + direct chat with recruiters. Best for quick responses in IT support, BPO+tech, and entry-level developer roles. Strong in Tier-2/3 cities.</div>
-    </div>
-
-    <div class="plat" data-pcat="global">
-      <div class="plat-name" style="color:#22d3ee">Turing / Toptal</div>
-      <div class="plat-for">Best for: USD-paying remote jobs</div>
-      <div class="ptags"><span class="ptag tt">USD salary</span><span class="ptag tt">Global remote</span></div>
-      <div class="plat-tip">Work from India, get paid in USD. Turing vets developers for global companies. Toptal = top 3% but highest pay ($15–75/hr). Best for Web Dev, Full Stack, DevOps.</div>
-    </div>
-
-    <div class="plat" data-pcat="global">
-      <div class="plat-name" style="color:#fb923c">Upwork / Fiverr</div>
-      <div class="plat-for">Best for: Freelance + Side income</div>
-      <div class="ptags"><span class="ptag to">Freelance</span><span class="ptag to">Build portfolio</span></div>
-      <div class="plat-tip">Build real experience + income while job hunting. Web Dev, DevOps scripts, ML projects all have active demand. A rated Upwork profile → full-time credibility.</div>
-    </div>
-
-    <div class="plat" data-pcat="govt">
-      <div class="plat-name" style="color:#a78bfa">NCS (Govt Portal)</div>
-      <div class="plat-for">Best for: Govt + Verified listings</div>
-      <div class="ptags"><span class="ptag tp">Free</span><span class="ptag tp">155K+ vacancies</span></div>
-      <div class="plat-tip">Ministry of Labour portal. 155,000+ verified government and private sector listings. Free for job seekers. Career counselling available. Best for PSU / govt IT roles.</div>
-    </div>
-
-    <div class="plat" data-pcat="general,tech,global">
-      <div class="plat-name" style="color:#34d399">Google Jobs</div>
-      <div class="plat-for">Best for: Aggregated search engine</div>
-      <div class="ptags"><span class="ptag tg">All platforms</span><span class="ptag tg">Real-time</span></div>
-      <div class="plat-tip">jobs.google.com aggregates listings from Naukri, LinkedIn, Indeed, company sites. Search "ML Engineer fresher India" on Google → click Jobs tab. Set date filter to "Past 7 days". Fastest way to see all fresh listings in one place.</div>
-    </div>
-
-  </div><!-- /plat-grid -->
+    <div class="plat" data-pcat="general,tech"><div class="plat-name" style="color:#60a5fa">LinkedIn</div><div class="plat-for">Best for: IT + Networking + Remote</div><div class="ptags"><span class="ptag tb">All domains</span><span class="ptag tg">Networking</span></div><div class="plat-tip">70% more visibility with optimised profile. 87% of recruiters search here. 660+ GenAI jobs listed right now. Update profile every Tuesday for max recruiter reach.</div></div>
+    <div class="plat" data-pcat="general"><div class="plat-name" style="color:#fbbf24">Naukri.com</div><div class="plat-for">Best for: Volume + All IT roles</div><div class="ptags"><span class="ptag ta">7.8cr resumes</span><span class="ptag ta">80% fill rate</span></div><div class="plat-tip">Largest database in India. 8,000+ GenAI jobs, 1,000s of Web Dev & DevOps roles. Enable "Resume Score Booster". Apply within 24 hrs of posting for 3× shortlist rate.</div></div>
+    <div class="plat" data-pcat="fresher"><div class="plat-name" style="color:#34d399">Internshala</div><div class="plat-for">Best for: Internships + Freshers</div><div class="ptags"><span class="ptag tg">5,435 openings</span><span class="ptag tg">+41% surge</span></div><div class="plat-tip">Best for first paid internship → full-time conversion. Covers Web Dev, ML, DevOps, Design, IT Support. Free to apply. PPO (pre-placement offers) common.</div></div>
+    <div class="plat" data-pcat="tech"><div class="plat-name" style="color:#a78bfa">Wellfound (AngelList)</div><div class="plat-for">Best for: Startups + Equity roles</div><div class="ptags"><span class="ptag tp">Startup-only</span><span class="ptag tp">Equity shown</span></div><div class="plat-tip">Direct apply to founders. Salary + equity shown upfront. Perfect for AI/ML, Full Stack, DevOps at early-stage funded startups. No recruiter middleman.</div></div>
+    <div class="plat" data-pcat="general,tech"><div class="plat-name" style="color:#22d3ee">Glassdoor</div><div class="plat-for">Best for: Salary intel + MNCs</div><div class="ptags"><span class="ptag tt">Salary data</span><span class="ptag tt">Reviews</span></div><div class="plat-tip">6,319 GenAI jobs + thousands of web/DevOps roles. Read interview reviews before applying. Use salary data to benchmark and negotiate confidently.</div></div>
+    <div class="plat" data-pcat="tech"><div class="plat-name" style="color:#fb923c">Cutshort.io</div><div class="plat-for">Best for: Tech + Web Dev + DevOps</div><div class="ptags"><span class="ptag to">AI-matched</span><span class="ptag to">50+ DevOps roles</span></div><div class="plat-tip">AI-powered matching for tech roles. 3.5M+ curated tech profiles. Covers Frontend, Backend, Full Stack, DevOps, ML. Many offers within 48 hrs. Less noise than Naukri.</div></div>
+    <div class="plat" data-pcat="tech"><div class="plat-name" style="color:#60a5fa">Hirist.tech</div><div class="plat-for">Best for: Premium tech + DevOps/SRE</div><div class="ptags"><span class="ptag tb">Tech-only</span><span class="ptag tb">Unicorns</span></div><div class="plat-tip">Exclusively IT/tech roles from top startups and unicorns. Strong for DevOps/SRE, Data Science, Software Dev. One-click apply + real-time tracking.</div></div>
+    <div class="plat" data-pcat="tech"><div class="plat-name" style="color:#34d399">Instahyre</div><div class="plat-for">Best for: Product + Tech companies</div><div class="ptags"><span class="ptag tg">10K+ companies</span><span class="ptag tg">Google, Amazon</span></div><div class="plat-tip">AI-matching engine with 10,000+ top companies. Zero spam — only relevant verified listings. Strong for Web Dev, Product, IT roles. Privacy-focused.</div></div>
+    <div class="plat" data-pcat="fresher"><div class="plat-name" style="color:#fb923c">Unstop / Cuvette</div><div class="plat-for">Best for: Hackathons → PPO → Jobs</div><div class="ptags"><span class="ptag to">Challenges</span><span class="ptag to">PPO route</span></div><div class="plat-tip">Win a challenge = skip resume screening entirely. Micro-internships recognised by 73% of Indian hiring managers. Best route for freshers with no work experience.</div></div>
+    <div class="plat" data-pcat="fresher"><div class="plat-name" style="color:#a78bfa">Freshersworld</div><div class="plat-for">Best for: 0 exp → first job</div><div class="ptags"><span class="ptag tp">Fresher-only</span><span class="ptag tp">Campus drives</span></div><div class="plat-tip">Exclusively for fresh graduates. Supports bulk campus drive applications, exam-based filters, and Govt/PSU listings.</div></div>
+    <div class="plat" data-pcat="general"><div class="plat-name" style="color:#fbbf24">Indeed India</div><div class="plat-for">Best for: Volume + Global roles</div><div class="ptags"><span class="ptag ta">Aggregator</span><span class="ptag ta">Global reach</span></div><div class="plat-tip">#1 job app worldwide. Aggregates listings from multiple sources. Good for Web Dev, IT Support, QA roles. Best for international or remote-global opportunities.</div></div>
+    <div class="plat" data-pcat="general"><div class="plat-name" style="color:#f472b6">Foundit (Monster)</div><div class="plat-for">Best for: Mid-size companies + IT</div><div class="ptags"><span class="ptag" style="background:var(--pink-bg);color:var(--pink-light)">1–3 yr roles</span></div><div class="plat-tip">Formerly Monster India. Good coverage of IT support, testing/QA, and junior developer roles. Skill assessments available to boost your profile.</div></div>
+    <div class="plat" data-pcat="general,fresher"><div class="plat-name" style="color:#34d399">Apna</div><div class="plat-for">Best for: Fast entry-level + Local</div><div class="ptags"><span class="ptag tg">10M+ downloads</span><span class="ptag tg">Quick replies</span></div><div class="plat-tip">Verified employers + direct chat with recruiters. Best for quick responses in IT support, BPO+tech, and entry-level developer roles. Strong in Tier-2/3 cities.</div></div>
+    <div class="plat" data-pcat="global"><div class="plat-name" style="color:#22d3ee">Turing / Toptal</div><div class="plat-for">Best for: USD-paying remote jobs</div><div class="ptags"><span class="ptag tt">USD salary</span><span class="ptag tt">Global remote</span></div><div class="plat-tip">Work from India, get paid in USD. Turing vets developers for global companies. Toptal = top 3% but highest pay ($15–75/hr). Best for Web Dev, Full Stack, DevOps.</div></div>
+    <div class="plat" data-pcat="global"><div class="plat-name" style="color:#fb923c">Upwork / Fiverr</div><div class="plat-for">Best for: Freelance + Side income</div><div class="ptags"><span class="ptag to">Freelance</span><span class="ptag to">Build portfolio</span></div><div class="plat-tip">Build real experience + income while job hunting. Web Dev, DevOps scripts, ML projects all have active demand. A rated Upwork profile → full-time credibility.</div></div>
+    <div class="plat" data-pcat="govt"><div class="plat-name" style="color:#a78bfa">NCS (Govt Portal)</div><div class="plat-for">Best for: Govt + Verified listings</div><div class="ptags"><span class="ptag tp">Free</span><span class="ptag tp">155K+ vacancies</span></div><div class="plat-tip">Ministry of Labour portal. 155,000+ verified government and private sector listings. Free for job seekers. Best for PSU / govt IT roles.</div></div>
+    <div class="plat" data-pcat="general,tech,global"><div class="plat-name" style="color:#34d399">Google Jobs</div><div class="plat-for">Best for: Aggregated search engine</div><div class="ptags"><span class="ptag tg">All platforms</span><span class="ptag tg">Real-time</span></div><div class="plat-tip">jobs.google.com aggregates listings from Naukri, LinkedIn, Indeed, company sites. Set date filter to "Past 7 days". Fastest way to see all fresh listings in one place.</div></div>
+  </div>
 
   <div class="divider"></div>
 
-  <!-- MNC CAREER PAGES -->
+  <!-- MNC CAREERS -->
   <div class="sh" id="mnc"><span class="stag">Direct Apply</span><span class="stitle">MNC company career pages — apply directly, no middleman</span></div>
   <p style="font-size:13px;color:var(--text2);margin-bottom:18px;line-height:1.7">70% of MNC roles are filled through direct applications or referrals before ever appearing on job boards. Bookmark these career pages and check them weekly — jobs appear here 2–7 days before Naukri or LinkedIn.</p>
 
-  <!-- MNC FILTER -->
   <div class="plat-filter" id="mnc-filter">
     <button class="pf sel" data-mf="all" onclick="filtMnc(this)">All MNCs</button>
     <button class="pf" data-mf="mass" onclick="filtMnc(this)">Mass Recruiters</button>
@@ -570,408 +508,69 @@ footer a:hover{color:var(--blue-light)}
   </div>
 
   <div class="mnc-grid" id="mnc-grid">
+    <div class="mnc-card" data-mc="mass"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1a56db,#3b82f6)">TCS</div><div><div class="mnc-name">Tata Consultancy Services</div><div class="mnc-meta">Mass Recruiter · ~40,000 freshers/yr</div></div></div><div class="mnc-roles">Ninja ₹3.6L · Digital ₹7L · Prime ₹9L</div><div class="mnc-tip">Apply via TCS NextStep portal. Take NQT for all 3 tiers. Prime needs Advanced Coding + AI/ML skills.</div><div class="mnc-links"><a href="https://www.tcs.com/careers/india" target="_blank" class="mnc-btn">Career Page</a><a href="https://nextstep.tcs.com" target="_blank" class="mnc-btn mnc-btn-outline">NextStep Portal</a></div></div>
+    <div class="mnc-card" data-mc="mass"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#065f46,#10b981)">INF</div><div><div class="mnc-name">Infosys</div><div class="mnc-meta">Mass Recruiter · ~20,000 freshers/yr</div></div></div><div class="mnc-roles">SE ₹3.6L · SP ₹6.5L · DSE ₹8L · PP ₹9.5L</div><div class="mnc-tip">Off-campus drive for M.Tech/BE 2024–2025 batch. Apply via InfyTQ + HackWithInfy for higher packages.</div><div class="mnc-links"><a href="https://www.infosys.com/careers.html" target="_blank" class="mnc-btn">Career Page</a><a href="https://www.infytq.com" target="_blank" class="mnc-btn mnc-btn-outline">InfyTQ</a></div></div>
+    <div class="mnc-card" data-mc="mass"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">WIP</div><div><div class="mnc-name">Wipro</div><div class="mnc-meta">Mass Recruiter · Elite NTH + WILP</div></div></div><div class="mnc-roles">Project Eng ₹3.5L · Elite ₹6L · Turbo ₹6.5L</div><div class="mnc-tip">Apply via Elite National Talent Hunt or WILP. Aptitude + essay + coding test. Turbo track for CS/IT with strong coding skills.</div><div class="mnc-links"><a href="https://careers.wipro.com" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="mass,consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#9d174d,#ec4899)">ACC</div><div><div class="mnc-name">Accenture</div><div class="mnc-meta">Mass Recruiter · ASE + Packaged App</div></div></div><div class="mnc-roles">ASE ₹4.5L · Specialist ₹7–12L</div><div class="mnc-tip">Application Dev Associate for freshers. Strong in Cloud, AI, Digital. Game-based assessment + communication test. Tier-2 college-friendly.</div><div class="mnc-links"><a href="https://www.accenture.com/in-en/careers" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="mass,consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a5f,#3b82f6)">COG</div><div><div class="mnc-name">Cognizant</div><div class="mnc-meta">Mass Recruiter · GenC + GenC Next</div></div></div><div class="mnc-roles">GenC ₹4L · GenC Elevate ₹6.5L · Next ₹8L</div><div class="mnc-tip">GenC Next for ML/AI skills — apply specifically to that track. All batches eligible. CTS Exam → Technical → HR rounds.</div><div class="mnc-links"><a href="https://careers.cognizant.com" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="mass,consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#065f46,#34d399)">CAP</div><div><div class="mnc-name">Capgemini</div><div class="mnc-meta">Mass Recruiter · PINAKA + FLEX</div></div></div><div class="mnc-roles">Analyst ₹3.8L · Sr Analyst ₹6L</div><div class="mnc-tip">Recruits 2024–2026 batch. Aptitude + technical + game-based assessment. PINAKA program for AI/cloud specialisation.</div><div class="mnc-links"><a href="https://www.capgemini.com/in-en/careers/" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="mass,consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#374151,#6b7280)">HCL</div><div><div class="mnc-name">HCLTech</div><div class="mnc-meta">Mass Recruiter · Tech Bee + Graduate</div></div></div><div class="mnc-roles">Graduate Eng ₹3.8L · Tech Bee ₹2.5L</div><div class="mnc-tip">Tech Bee for 12th pass/diploma. Graduate Engineer for BTech/MTech. Actively hiring for cloud, DevOps, and AI/ML services globally.</div><div class="mnc-links"><a href="https://www.hcltech.com/careers" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="mass,consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#60a5fa)">IBM</div><div><div class="mnc-name">IBM India</div><div class="mnc-meta">Consulting + AI Focus · Watson / Cloud</div></div></div><div class="mnc-roles">Assoc Systems Eng ₹6–12L (AI/Cloud)</div><div class="mnc-tip">IBM actively hires freshers for AI, Hybrid Cloud, Cybersecurity. 2026 batch hiring for Assoc System Engineer open now.</div><div class="mnc-links"><a href="https://www.ibm.com/careers/in-en" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#166534,#22c55e)">DEL</div><div><div class="mnc-name">Deloitte India</div><div class="mnc-meta">Consulting · USI + Analyst roles</div></div></div><div class="mnc-roles">Analyst ₹6–9L · Tech Analyst ₹7–12L</div><div class="mnc-tip">Apply to Deloitte USI (India delivery centres). Strong for data analytics, AI consulting, cloud. M.Tech preferred for senior track.</div><div class="mnc-links"><a href="https://www2.deloitte.com/in/en/careers.html" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#7c2d12,#fb923c)">TCH</div><div><div class="mnc-name">Tech Mahindra</div><div class="mnc-meta">Mass Recruiter · SMART Program</div></div></div><div class="mnc-roles">Graduate Eng ₹3.25L · Digital ₹5–6L</div><div class="mnc-tip">SMART hiring program for freshers. Digital track for Python/ML profiles. Reasonably easy selection process for tier-2 colleges.</div><div class="mnc-links"><a href="https://careers.techmahindra.com" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1e40af,#93c5fd)">LTI</div><div><div class="mnc-name">LTIMindtree</div><div class="mnc-meta">IT Services · Off-campus Drive 2026</div></div></div><div class="mnc-roles">SE ₹4L · Sr SE ₹7–9L</div><div class="mnc-tip">Off-campus drive for 2026 batch actively running. Strong in BFSI, cloud, data engineering. Good company for first job stability.</div><div class="mnc-links"><a href="https://www.ltimindtree.com/careers/" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#15803d,#4ade80)">GOO</div><div><div class="mnc-name">Google India</div><div class="mnc-meta">Product · University Graduate 2026 open</div></div></div><div class="mnc-roles">SWE UG ₹40–70L · Student Researcher open</div><div class="mnc-tip">SWE University Graduate 2026 role currently open for Bengaluru/Hyderabad/Pune/Gurugram. Student Researcher program open for Masters/PhD.</div><div class="mnc-links"><a href="https://www.google.com/about/careers/applications/jobs/results/?hl=en-IN" target="_blank" class="mnc-btn">All India Jobs</a><a href="https://www.google.com/about/careers/applications/students/" target="_blank" class="mnc-btn mnc-btn-outline">Students</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6)">MSF</div><div><div class="mnc-name">Microsoft India</div><div class="mnc-meta">Product · MACH Intern + FTE</div></div></div><div class="mnc-roles">SWE ₹40–80L · MACH Intern ₹2–3L/mo</div><div class="mnc-tip">MACH (Microsoft Aspire Career Hub) for fresh graduates. Hyderabad + Bengaluru offices. Strong DSA + system design needed.</div><div class="mnc-links"><a href="https://careers.microsoft.com/v2/global/en/india.html" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#92400e,#fbbf24)">AMZ</div><div><div class="mnc-name">Amazon India</div><div class="mnc-meta">Product · Hyderabad largest hub outside Seattle</div></div></div><div class="mnc-roles">SDE ₹30–55L · AWS roles ₹20–45L</div><div class="mnc-tip">Hyderabad has largest Amazon campus outside Seattle. ML, supply chain, AWS all hire here. Apply 3–6 months ahead.</div><div class="mnc-links"><a href="https://www.amazon.jobs/en/locations/india" target="_blank" class="mnc-btn">India Jobs</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#60a5fa)">SAP</div><div><div class="mnc-name">SAP Labs India</div><div class="mnc-meta">Product · GCC · Bengaluru + Pune</div></div></div><div class="mnc-roles">Dev Associate ₹12–18L (GCC premium)</div><div class="mnc-tip">SAP Labs is a GCC — salaries 50–100% higher than IT services. Focuses on enterprise software, cloud, AI. Annual hiring cycle.</div><div class="mnc-links"><a href="https://jobs.sap.com/go/India/3374401/" target="_blank" class="mnc-btn">India Jobs</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#7c3aed,#c4b5fd)">ORA</div><div><div class="mnc-name">Oracle India</div><div class="mnc-meta">Product · Cloud + Database · Bengaluru</div></div></div><div class="mnc-roles">Assoc SWE ₹10–18L · Cloud Eng ₹12–20L</div><div class="mnc-tip">Off-campus drive 2026 active. Oracle Cloud (OCI) is aggressively hiring. Strong in Java, cloud, database roles.</div><div class="mnc-links"><a href="https://www.oracle.com/in/corporate/careers/" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#0f766e,#2dd4bf)">CIS</div><div><div class="mnc-name">Cisco India</div><div class="mnc-meta">Networking + Security · Bengaluru / Pune</div></div></div><div class="mnc-roles">Network Eng ₹10–16L · Security ₹12–20L</div><div class="mnc-tip">Hiring for networking, DevOps, cybersecurity, and AI. CCNA certification is a strong advantage for freshers.</div><div class="mnc-links"><a href="https://jobs.cisco.com" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1d4ed8,#93c5fd)">ADB</div><div><div class="mnc-name">Adobe India</div><div class="mnc-meta">Product · Noida + Bengaluru</div></div></div><div class="mnc-roles">MTS ₹25–45L · Intern ₹1.5–2L/mo</div><div class="mnc-tip">Member Technical Staff (MTS) for freshers with strong CS fundamentals. DSA + system design + domain projects needed.</div><div class="mnc-links"><a href="https://careers.adobe.com/us/en/india-jobs" target="_blank" class="mnc-btn">India Jobs</a></div></div>
+    <div class="mnc-card" data-mc="global,consulting"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#6366f1)">INF2</div><div><div class="mnc-name">Infosys BPM</div><div class="mnc-meta">Services · Process + Analytics</div></div></div><div class="mnc-roles">Process Exec ₹2.5–4L · Analyst ₹4–7L</div><div class="mnc-tip">Separate from Infosys IT. Easier to get in. Good stepping stone. Can transfer to Infosys IT after 1–2 years.</div><div class="mnc-links"><a href="https://www.infosysbpm.com/careers.html" target="_blank" class="mnc-btn">Career Page</a></div></div>
+    <div class="mnc-card" data-mc="global,product"><div class="mnc-top"><div class="mnc-logo" style="background:linear-gradient(135deg,#0f172a,#475569)">INT</div><div><div class="mnc-name">Intel India</div><div class="mnc-meta">Semiconductor · Bengaluru + Hyderabad</div></div></div><div class="mnc-roles">Graduate Tech ₹12–22L · Intern ₹1L/mo</div><div class="mnc-tip">Hardware + software blend. Hires for chip design, firmware, OS, ML infra. Internship → FTE conversion common.</div><div class="mnc-links"><a href="https://www.intel.com/content/www/us/en/jobs/locations/india.html" target="_blank" class="mnc-btn">India Jobs</a></div></div>
+  </div>
 
-    <!-- MASS RECRUITERS -->
-    <div class="mnc-card" data-mc="mass">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1a56db,#3b82f6)">TCS</div>
-        <div>
-          <div class="mnc-name">Tata Consultancy Services</div>
-          <div class="mnc-meta">Mass Recruiter · ~40,000 freshers/yr</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Ninja ₹3.6L · Digital ₹7L · Prime ₹9L</div>
-      <div class="mnc-tip">Apply via TCS NextStep portal. Take NQT for all 3 tiers. Prime needs Advanced Coding + AI/ML skills.</div>
-      <div class="mnc-links">
-        <a href="https://www.tcs.com/careers/india" target="_blank" class="mnc-btn">Career Page</a>
-        <a href="https://nextstep.tcs.com" target="_blank" class="mnc-btn mnc-btn-outline">NextStep Portal</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#065f46,#10b981)">INF</div>
-        <div>
-          <div class="mnc-name">Infosys</div>
-          <div class="mnc-meta">Mass Recruiter · ~20,000 freshers/yr</div>
-        </div>
-      </div>
-      <div class="mnc-roles">SE ₹3.6L · SP ₹6.5L · DSE ₹8L · PP ₹9.5L</div>
-      <div class="mnc-tip">Off-campus drive for M.Tech/BE 2024–2025 batch. Apply via InfyTQ + HackWithInfy for higher packages.</div>
-      <div class="mnc-links">
-        <a href="https://www.infosys.com/careers.html" target="_blank" class="mnc-btn">Career Page</a>
-        <a href="https://www.infytq.com" target="_blank" class="mnc-btn mnc-btn-outline">InfyTQ</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">WIP</div>
-        <div>
-          <div class="mnc-name">Wipro</div>
-          <div class="mnc-meta">Mass Recruiter · Elite NTH + WILP</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Project Eng ₹3.5L · Elite ₹6L · Turbo ₹6.5L</div>
-      <div class="mnc-tip">Apply via Elite National Talent Hunt or WILP. Aptitude + essay + coding test. Turbo track for CS/IT with strong coding skills.</div>
-      <div class="mnc-links">
-        <a href="https://careers.wipro.com" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass,consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#9d174d,#ec4899)">ACC</div>
-        <div>
-          <div class="mnc-name">Accenture</div>
-          <div class="mnc-meta">Mass Recruiter · ASE + Packaged App</div>
-        </div>
-      </div>
-      <div class="mnc-roles">ASE ₹4.5L · Specialist ₹7–12L</div>
-      <div class="mnc-tip">Application Dev Associate for freshers. Strong in Cloud, AI, Digital. Game-based assessment + communication test. Tier-2 college-friendly.</div>
-      <div class="mnc-links">
-        <a href="https://www.accenture.com/in-en/careers" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass,consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a5f,#3b82f6)">COG</div>
-        <div>
-          <div class="mnc-name">Cognizant</div>
-          <div class="mnc-meta">Mass Recruiter · GenC + GenC Next</div>
-        </div>
-      </div>
-      <div class="mnc-roles">GenC ₹4L · GenC Elevate ₹6.5L · Next ₹8L</div>
-      <div class="mnc-tip">GenC Next for ML/AI skills — apply specifically to that track. All batches eligible. CTS Exam → Technical → HR rounds.</div>
-      <div class="mnc-links">
-        <a href="https://careers.cognizant.com" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass,consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#065f46,#34d399)">CAP</div>
-        <div>
-          <div class="mnc-name">Capgemini</div>
-          <div class="mnc-meta">Mass Recruiter · PINAKA + FLEX</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Analyst ₹3.8L · Sr Analyst ₹6L</div>
-      <div class="mnc-tip">Recruits 2024–2026 batch. Aptitude + technical + game-based assessment. PINAKA program for AI/cloud specialisation. Good work-life balance reputation.</div>
-      <div class="mnc-links">
-        <a href="https://www.capgemini.com/in-en/careers/" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass,consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#374151,#6b7280)">HCL</div>
-        <div>
-          <div class="mnc-name">HCLTech</div>
-          <div class="mnc-meta">Mass Recruiter · Tech Bee + Graduate</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Graduate Eng ₹3.8L · Tech Bee ₹2.5L</div>
-      <div class="mnc-tip">Tech Bee for 12th pass/diploma. Graduate Engineer for BTech/MTech. Actively hiring for cloud, DevOps, and AI/ML services globally.</div>
-      <div class="mnc-links">
-        <a href="https://www.hcltech.com/careers" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="mass,consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#60a5fa)">IBM</div>
-        <div>
-          <div class="mnc-name">IBM India</div>
-          <div class="mnc-meta">Consulting + AI Focus · Watson / Cloud</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Assoc Systems Eng ₹6–12L (AI/Cloud)</div>
-      <div class="mnc-tip">IBM actively hires freshers for AI, Hybrid Cloud, Cybersecurity. Not mass-recruiter but quality roles. 2026 batch hiring for Assoc System Engineer open now.</div>
-      <div class="mnc-links">
-        <a href="https://www.ibm.com/careers/in-en" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <!-- CONSULTING/SERVICES -->
-    <div class="mnc-card" data-mc="consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#166534,#22c55e)">DEL</div>
-        <div>
-          <div class="mnc-name">Deloitte India</div>
-          <div class="mnc-meta">Consulting · USI + Analyst roles</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Analyst ₹6–9L · Tech Analyst ₹7–12L</div>
-      <div class="mnc-tip">Apply to Deloitte USI (India delivery centres). Strong for data analytics, AI consulting, cloud. Resume + online assessment + 2 interview rounds. M.Tech preferred for senior track.</div>
-      <div class="mnc-links">
-        <a href="https://www2.deloitte.com/in/en/careers.html" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#7c2d12,#fb923c)">TCH</div>
-        <div>
-          <div class="mnc-name">Tech Mahindra</div>
-          <div class="mnc-meta">Mass Recruiter · SMART Program</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Graduate Eng ₹3.25L · Digital ₹5–6L</div>
-      <div class="mnc-tip">SMART hiring program for freshers. Strong telecom + IT background. Digital track for Python/ML profiles. Reasonably easy selection process for tier-2 colleges.</div>
-      <div class="mnc-links">
-        <a href="https://careers.techmahindra.com" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1e40af,#93c5fd)">LTI</div>
-        <div>
-          <div class="mnc-name">LTIMindtree</div>
-          <div class="mnc-meta">IT Services · Off-campus Drive 2026</div>
-        </div>
-      </div>
-      <div class="mnc-roles">SE ₹4L · Sr SE ₹7–9L</div>
-      <div class="mnc-tip">Off-campus drive for 2026 batch actively running. Merged entity (L&T Infotech + Mindtree). Strong in BFSI, cloud, data engineering. Good company for first job stability.</div>
-      <div class="mnc-links">
-        <a href="https://www.ltimindtree.com/careers/" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <!-- GLOBAL TECH GIANTS -->
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#15803d,#4ade80)">GOO</div>
-        <div>
-          <div class="mnc-name">Google India</div>
-          <div class="mnc-meta">Product · University Graduate 2026 open</div>
-        </div>
-      </div>
-      <div class="mnc-roles">SWE UG ₹40–70L · Student Researcher open</div>
-      <div class="mnc-tip">Software Engineer University Graduate 2026 role currently open for Bengaluru/Hyderabad/Pune/Gurugram. Student Researcher program open until March 31 2026 for Masters/PhD.</div>
-      <div class="mnc-links">
-        <a href="https://www.google.com/about/careers/applications/jobs/results/?hl=en-IN" target="_blank" class="mnc-btn">All India Jobs</a>
-        <a href="https://www.google.com/about/careers/applications/students/" target="_blank" class="mnc-btn mnc-btn-outline">Students</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6)">MSF</div>
-        <div>
-          <div class="mnc-name">Microsoft India</div>
-          <div class="mnc-meta">Product · MACH Intern + FTE</div>
-        </div>
-      </div>
-      <div class="mnc-roles">SWE ₹40–80L · MACH Intern ₹2–3L/mo</div>
-      <div class="mnc-tip">MACH (Microsoft Aspire Career Hub) for fresh graduates. Hyderabad + Bengaluru offices. Apply via careers.microsoft.com. Strong DSA + system design needed.</div>
-      <div class="mnc-links">
-        <a href="https://careers.microsoft.com/v2/global/en/india.html" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#92400e,#fbbf24)">AMZ</div>
-        <div>
-          <div class="mnc-name">Amazon India</div>
-          <div class="mnc-meta">Product · Hyderabad largest hub outside Seattle</div>
-        </div>
-      </div>
-      <div class="mnc-roles">SDE ₹30–55L · AWS roles ₹20–45L</div>
-      <div class="mnc-tip">Hyderabad has largest Amazon campus outside Seattle. ML, supply chain, AWS all hire here. Leetcode-style OA + 4–6 leadership principle interviews. Apply 3–6 months ahead.</div>
-      <div class="mnc-links">
-        <a href="https://www.amazon.jobs/en/locations/india" target="_blank" class="mnc-btn">India Jobs</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#60a5fa)">SAP</div>
-        <div>
-          <div class="mnc-name">SAP Labs India</div>
-          <div class="mnc-meta">Product · GCC · Bengaluru + Pune</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Dev Associate ₹12–18L (GCC premium)</div>
-      <div class="mnc-tip">SAP Labs is a GCC — salaries 50–100% higher than IT services. Focuses on enterprise software, cloud, AI. Good for freshers with strong academic projects. Annual hiring cycle.</div>
-      <div class="mnc-links">
-        <a href="https://jobs.sap.com/go/India/3374401/" target="_blank" class="mnc-btn">India Jobs</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#7c3aed,#c4b5fd)">ORA</div>
-        <div>
-          <div class="mnc-name">Oracle India</div>
-          <div class="mnc-meta">Product · Cloud + Database · Bengaluru</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Assoc SWE ₹10–18L · Cloud Eng ₹12–20L</div>
-      <div class="mnc-tip">Off-campus drive 2026 active. Oracle Cloud (OCI) is aggressively hiring. Strong in Java, cloud, database roles. Apply directly — less competitive than Amazon/Google.</div>
-      <div class="mnc-links">
-        <a href="https://www.oracle.com/in/corporate/careers/" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#0f766e,#2dd4bf)">CIS</div>
-        <div>
-          <div class="mnc-name">Cisco India</div>
-          <div class="mnc-meta">Networking + Security · Bengaluru / Pune</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Network Eng ₹10–16L · Security ₹12–20L</div>
-      <div class="mnc-tip">Hiring for networking, DevOps, cybersecurity, and AI. Good for freshers interested in networking/security domain. CCNA certification is a strong advantage.</div>
-      <div class="mnc-links">
-        <a href="https://jobs.cisco.com" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1d4ed8,#93c5fd)">ADB</div>
-        <div>
-          <div class="mnc-name">Adobe India</div>
-          <div class="mnc-meta">Product · Noida + Bengaluru</div>
-        </div>
-      </div>
-      <div class="mnc-roles">MTS ₹25–45L · Intern ₹1.5–2L/mo</div>
-      <div class="mnc-tip">Member Technical Staff (MTS) for freshers with strong CS fundamentals. Also runs intern programs. DSA + system design + domain projects needed. Highly coveted role.</div>
-      <div class="mnc-links">
-        <a href="https://careers.adobe.com/us/en/india-jobs" target="_blank" class="mnc-btn">India Jobs</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,consulting">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#1e3a8a,#6366f1)">INF2</div>
-        <div>
-          <div class="mnc-name">Infosys BPM</div>
-          <div class="mnc-meta">Services · Process + Analytics</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Process Exec ₹2.5–4L · Analyst ₹4–7L</div>
-      <div class="mnc-tip">Separate from Infosys IT. Easier to get in. Good stepping stone. Strong for data entry, analytics, finance operations. Can transfer to Infosys IT after 1–2 years.</div>
-      <div class="mnc-links">
-        <a href="https://www.infosysbpm.com/careers.html" target="_blank" class="mnc-btn">Career Page</a>
-      </div>
-    </div>
-
-    <div class="mnc-card" data-mc="global,product">
-      <div class="mnc-top">
-        <div class="mnc-logo" style="background:linear-gradient(135deg,#0f172a,#475569)">INT</div>
-        <div>
-          <div class="mnc-name">Intel India</div>
-          <div class="mnc-meta">Semiconductor · Bengaluru + Hyderabad</div>
-        </div>
-      </div>
-      <div class="mnc-roles">Graduate Tech ₹12–22L · Intern ₹1L/mo</div>
-      <div class="mnc-tip">Hardware + software blend. Hires for chip design, firmware, OS, ML infra. Internship → FTE conversion common. Strong academic projects in embedded/systems required.</div>
-      <div class="mnc-links">
-        <a href="https://www.intel.com/content/www/us/en/jobs/locations/india.html" target="_blank" class="mnc-btn">India Jobs</a>
-      </div>
-    </div>
-
-  </div><!-- /mnc-grid -->
-
-  <!-- GOOGLE JOBS SEARCH BOX -->
+  <!-- GOOGLE JOBS -->
   <div class="card" style="margin-top:16px;margin-bottom:32px">
     <div class="ctitle"><div class="dot" style="background:var(--green)"></div>Search jobs directly on Google Jobs</div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Google aggregates listings from all platforms — Naukri, LinkedIn, Internshala, Indeed, company sites — in one place. Use these search templates on Google or paste them into the search bar at <a href="https://jobs.google.com" target="_blank" style="color:var(--blue-light)">jobs.google.com</a>.</p>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6">Google aggregates listings from all platforms — Naukri, LinkedIn, Internshala, Indeed, company sites — in one place. Use these search templates on Google or paste them into <a href="https://jobs.google.com" target="_blank" style="color:var(--blue-light)">jobs.google.com</a>.</p>
     <div class="google-queries" id="gq-wrap">
-      <div class="gq-item" onclick="copyGQ(this)" data-q='"ML Engineer" OR "AI Engineer" fresher jobs India site:naukri.com OR site:linkedin.com'>
-        <div class="gq-icon">🔍</div>
-        <div class="gq-text">"ML Engineer" OR "AI Engineer" fresher jobs India</div>
-        <div class="gq-copy">Copy</div>
-      </div>
-      <div class="gq-item" onclick="copyGQ(this)" data-q='"Full Stack Developer" OR "React Developer" fresher jobs India 0-2 years Bengaluru OR Pune OR Remote'>
-        <div class="gq-icon">🔍</div>
-        <div class="gq-text">"Full Stack Developer" OR "React Developer" fresher 0-2 yrs India</div>
-        <div class="gq-copy">Copy</div>
-      </div>
-      <div class="gq-item" onclick="copyGQ(this)" data-q='"DevOps Engineer" OR "Cloud Engineer" fresher India 2026 AWS Docker Kubernetes'>
-        <div class="gq-icon">🔍</div>
-        <div class="gq-text">"DevOps Engineer" OR "Cloud Engineer" fresher India 2026 AWS</div>
-        <div class="gq-copy">Copy</div>
-      </div>
-      <div class="gq-item" onclick="copyGQ(this)" data-q='"Python Developer" OR "Data Scientist" 0-2 years India LangChain OR RAG OR machine learning'>
-        <div class="gq-icon">🔍</div>
-        <div class="gq-text">"Python Developer" OR "Data Scientist" 0-2 yrs LangChain / RAG</div>
-        <div class="gq-copy">Copy</div>
-      </div>
-      <div class="gq-item" onclick="copyGQ(this)" data-q='site:tcs.com/careers OR site:infosys.com/careers OR site:wipro.com/careers freshers 2026'>
-        <div class="gq-icon">🏢</div>
-        <div class="gq-text">Search TCS + Infosys + Wipro careers pages simultaneously</div>
-        <div class="gq-copy">Copy</div>
-      </div>
-      <div class="gq-item" onclick="copyGQ(this)" data-q='Google Jobs India freshers 2026 software engineer OR ML engineer OR DevOps">
-        <div class="gq-icon">🌐</div>
-        <div class="gq-text">Google Jobs → Software Engineer / ML / DevOps India freshers 2026</div>
-        <div class="gq-copy">Copy</div>
-      </div>
+      <div class="gq-item" onclick="copyGQ(this)" data-q='"ML Engineer" OR "AI Engineer" fresher jobs India site:naukri.com OR site:linkedin.com'><div class="gq-icon">🔍</div><div class="gq-text">"ML Engineer" OR "AI Engineer" fresher jobs India</div><div class="gq-copy">Copy</div></div>
+      <div class="gq-item" onclick="copyGQ(this)" data-q='"Full Stack Developer" OR "React Developer" fresher jobs India 0-2 years Bengaluru OR Pune OR Remote'><div class="gq-icon">🔍</div><div class="gq-text">"Full Stack Developer" OR "React Developer" fresher 0-2 yrs India</div><div class="gq-copy">Copy</div></div>
+      <div class="gq-item" onclick="copyGQ(this)" data-q='"DevOps Engineer" OR "Cloud Engineer" fresher India 2026 AWS Docker Kubernetes'><div class="gq-icon">🔍</div><div class="gq-text">"DevOps Engineer" OR "Cloud Engineer" fresher India 2026 AWS</div><div class="gq-copy">Copy</div></div>
+      <div class="gq-item" onclick="copyGQ(this)" data-q='"Python Developer" OR "Data Scientist" 0-2 years India LangChain OR RAG OR machine learning'><div class="gq-icon">🔍</div><div class="gq-text">"Python Developer" OR "Data Scientist" 0-2 yrs LangChain / RAG</div><div class="gq-copy">Copy</div></div>
+      <div class="gq-item" onclick="copyGQ(this)" data-q='site:tcs.com/careers OR site:infosys.com/careers OR site:wipro.com/careers freshers 2026'><div class="gq-icon">🏢</div><div class="gq-text">Search TCS + Infosys + Wipro careers pages simultaneously</div><div class="gq-copy">Copy</div></div>
+      <div class="gq-item" onclick="copyGQ(this)" data-q='Google Jobs India freshers 2026 software engineer OR ML engineer OR DevOps'><div class="gq-icon">🌐</div><div class="gq-text">Google Jobs → Software Engineer / ML / DevOps India freshers 2026</div><div class="gq-copy">Copy</div></div>
     </div>
     <p style="font-size:11px;color:var(--text3);margin-top:12px;font-family:var(--font-m)">↳ Paste any query above into Google search → click the "Jobs" tab → set filter to "Past 7 days"</p>
   </div>
+
+  <!-- TIPS -->
   <div class="sh" id="tips"><span class="stag">Guide</span><span class="stitle">Fresher survival guide — what actually works</span></div>
 
   <div class="acc open">
     <div class="acc-h" onclick="togAcc(this)"><div class="acc-q"><span>🎯</span>The 30-day action plan (for complete freshers)</div><span class="acc-arr">▼</span></div>
-    <div class="acc-b open">
-      <strong style="color:var(--text)">Week 1 — Set up:</strong> Optimise LinkedIn (add skills matching job descriptions, professional photo, 70-word headline). Set Naukri job alerts. Create GitHub README with your best project. Apply to 5–10 targeted jobs daily.<br><br>
-      <strong style="color:var(--text)">Week 2 — Apply smart:</strong> Apply within 24 hours of posting (3× better shortlist rate). Use Cutshort/Hirist for tech roles — less competition than Naukri. Tailor your resume skills section to each job description's keywords.<br><br>
-      <strong style="color:var(--text)">Week 3 — Direct outreach:</strong> Send 10–15 cold emails or LinkedIn DMs to hiring managers. Target companies that got Series A/B funding in past 3–6 months (check YourStory, Inc42). Mention their specific product in your message.<br><br>
-      <strong style="color:var(--text)">Week 4 — Build in public:</strong> Post a LinkedIn article about a project or learning. Push your best project to GitHub with a clean README and live demo. Follow up on all non-replies politely (doubles response rate).
-    </div>
+    <div class="acc-b open"><strong style="color:var(--text)">Week 1 — Set up:</strong> Optimise LinkedIn (add skills matching job descriptions, professional photo, 70-word headline). Set Naukri job alerts. Create GitHub README with your best project. Apply to 5–10 targeted jobs daily.<br><br><strong style="color:var(--text)">Week 2 — Apply smart:</strong> Apply within 24 hours of posting (3× better shortlist rate). Use Cutshort/Hirist for tech roles — less competition than Naukri. Tailor your resume skills section to each job description's keywords.<br><br><strong style="color:var(--text)">Week 3 — Direct outreach:</strong> Send 10–15 cold emails or LinkedIn DMs to hiring managers. Target companies that got Series A/B funding in past 3–6 months (check YourStory, Inc42). Mention their specific product in your message.<br><br><strong style="color:var(--text)">Week 4 — Build in public:</strong> Post a LinkedIn article about a project or learning. Push your best project to GitHub with a clean README and live demo. Follow up on all non-replies politely (doubles response rate).</div>
   </div>
 
   <div class="acc">
     <div class="acc-h" onclick="togAcc(this)"><div class="acc-q"><span>💻</span>Domain-specific tips — Web Dev, DevOps, IT, ML</div><span class="acc-arr">▼</span></div>
-    <div class="acc-b">
-      <strong style="color:var(--green-light)">Web Development:</strong> Build 2–3 live projects (deployed on Vercel/Netlify, not just GitHub). React + Node.js + MongoDB (MERN) is the most in-demand stack for freshers. A portfolio website is mandatory.<br><br>
-      <strong style="color:var(--amber-light)">DevOps / Cloud:</strong> Set up a personal AWS/GCP free-tier account and document what you build. A working CI/CD pipeline on GitHub Actions + Docker deployment is worth more than any certificate. AWS Solutions Architect Associate cert is the best ROI cert to get hired faster.<br><br>
-      <strong style="color:var(--blue-light)">AI / ML:</strong> A working RAG pipeline, live Streamlit app, or documented Kaggle notebook beats generic resumes. LangChain + vector DB experience is rare at fresher level and gets immediate attention.<br><br>
-      <strong style="color:var(--purple-light)">IT Support / QA:</strong> ISTQB Foundation certification is widely recognised and takes ~1 month to prepare. For IT support, CompTIA A+ or Google IT Support certificate (free on Coursera) is enough for a first job.<br><br>
-      <strong style="color:var(--teal-light)">Cybersecurity:</strong> TryHackMe and HackTheBox profiles are treated as direct experience. CEH or CompTIA Security+ are valued certificates. Bug bounty participation (HackerOne, Bugcrowd) is a strong differentiator.
-    </div>
+    <div class="acc-b"><strong style="color:var(--green-light)">Web Development:</strong> Build 2–3 live projects (deployed on Vercel/Netlify, not just GitHub). React + Node.js + MongoDB (MERN) is the most in-demand stack for freshers. A portfolio website is mandatory.<br><br><strong style="color:var(--amber-light)">DevOps / Cloud:</strong> Set up a personal AWS/GCP free-tier account and document what you build. A working CI/CD pipeline on GitHub Actions + Docker deployment is worth more than any certificate.<br><br><strong style="color:var(--blue-light)">AI / ML:</strong> A working RAG pipeline, live Streamlit app, or documented Kaggle notebook beats generic resumes. LangChain + vector DB experience is rare at fresher level and gets immediate attention.<br><br><strong style="color:var(--purple-light)">IT Support / QA:</strong> ISTQB Foundation certification is widely recognised and takes ~1 month to prepare. Google IT Support certificate (free on Coursera) is enough for a first job.<br><br><strong style="color:var(--teal-light)">Cybersecurity:</strong> TryHackMe and HackTheBox profiles are treated as direct experience. CEH or CompTIA Security+ are valued certificates. Bug bounty participation is a strong differentiator.</div>
   </div>
 
   <div class="acc">
     <div class="acc-h" onclick="togAcc(this)"><div class="acc-q"><span>🚫</span>Top mistakes freshers make (and how to fix them)</div><span class="acc-arr">▼</span></div>
-    <div class="acc-b">
-      <strong style="color:var(--red-light)">Mistake 1: Mass applying without tailoring.</strong> Sending one resume to 100 jobs gets 0 calls. Tailor the skills section to each job description's exact keywords — ATS filters out 75% of generic resumes before a human sees them.<br><br>
-      <strong style="color:var(--red-light)">Mistake 2: Only using one platform.</strong> Using 5+ platforms gives 3× more recruiter views. Don't rely only on LinkedIn or Naukri — use Cutshort for tech, Hirist for premium, Internshala for internships, and Unstop for challenges.<br><br>
-      <strong style="color:var(--red-light)">Mistake 3: No live projects or GitHub.</strong> 80% of employers now prioritise skills over degrees. A live deployed project with a clean README is worth more than listing "Python" on your resume for the 10th time.<br><br>
-      <strong style="color:var(--red-light)">Mistake 4: Ignoring the hidden job market.</strong> 70% of jobs are never publicly posted. Cold emailing a founder or team lead can create an opening that didn't exist. Direct outreach on LinkedIn has 2× higher response than job applications.<br><br>
-      <strong style="color:var(--red-light)">Mistake 5: No follow-up.</strong> 80% of candidates never follow up. One polite email 5–7 days after applying or messaging doubles your response rate significantly.
-    </div>
+    <div class="acc-b"><strong style="color:var(--red-light)">Mistake 1: Mass applying without tailoring.</strong> Sending one resume to 100 jobs gets 0 calls. Tailor the skills section to each job description's exact keywords — ATS filters out 75% of generic resumes before a human sees them.<br><br><strong style="color:var(--red-light)">Mistake 2: Only using one platform.</strong> Using 5+ platforms gives 3× more recruiter views.<br><br><strong style="color:var(--red-light)">Mistake 3: No live projects or GitHub.</strong> 80% of employers now prioritise skills over degrees. A live deployed project with a clean README is worth more than listing "Python" on your resume.<br><br><strong style="color:var(--red-light)">Mistake 4: Ignoring the hidden job market.</strong> 70% of jobs are never publicly posted. Cold emailing a founder can create an opening that didn't exist.<br><br><strong style="color:var(--red-light)">Mistake 5: No follow-up.</strong> 80% of candidates never follow up. One polite email 5–7 days after applying doubles your response rate significantly.</div>
   </div>
 
   <div class="acc">
     <div class="acc-h" onclick="togAcc(this)"><div class="acc-q"><span>📊</span>2026 India salary benchmarks — what to expect</div><span class="acc-arr">▼</span></div>
-    <div class="acc-b">
-      <strong style="color:var(--text)">Web Development (Fresher):</strong> Frontend — ₹3–6 LPA | Full Stack — ₹4–8 LPA | React/Node specialist — ₹5–9 LPA<br><br>
-      <strong style="color:var(--text)">DevOps / Cloud (Fresher):</strong> Junior DevOps — ₹4–8 LPA | AWS/Azure Engineer — ₹5–10 LPA | With AWS cert — ₹6–12 LPA<br><br>
-      <strong style="color:var(--text)">AI / ML / Data (Fresher):</strong> ML Engineer — ₹6–10 LPA | Data Scientist — ₹5–9 LPA | GenAI/LLM roles — ₹7–14 LPA<br><br>
-      <strong style="color:var(--text)">IT Support / QA (Fresher):</strong> IT Support — ₹2.5–5 LPA | Manual QA — ₹3–6 LPA | Automation QA — ₹4–8 LPA<br><br>
-      <strong style="color:var(--text)">MNC Benchmarks:</strong> TCS Ninja — ₹3.6 LPA | TCS Digital — ₹7 LPA | TCS Prime — ₹9 LPA | Infosys SP — ₹8–9.5 LPA | HackWithInfy — up to ₹9.5 LPA<br><br>
-      <strong style="color:var(--amber-light)">Premium for:</strong> LangChain/RAG, Kubernetes, Terraform, System Design, AWS Certified. Bengaluru pays 15–20% above national average.
-    </div>
+    <div class="acc-b"><strong style="color:var(--text)">Web Development (Fresher):</strong> Frontend — ₹3–6 LPA | Full Stack — ₹4–8 LPA | React/Node specialist — ₹5–9 LPA<br><br><strong style="color:var(--text)">DevOps / Cloud (Fresher):</strong> Junior DevOps — ₹4–8 LPA | AWS/Azure Engineer — ₹5–10 LPA | With AWS cert — ₹6–12 LPA<br><br><strong style="color:var(--text)">AI / ML / Data (Fresher):</strong> ML Engineer — ₹6–10 LPA | Data Scientist — ₹5–9 LPA | GenAI/LLM roles — ₹7–14 LPA<br><br><strong style="color:var(--text)">IT Support / QA (Fresher):</strong> IT Support — ₹2.5–5 LPA | Manual QA — ₹3–6 LPA | Automation QA — ₹4–8 LPA<br><br><strong style="color:var(--text)">MNC Benchmarks:</strong> TCS Ninja — ₹3.6 LPA | TCS Digital — ₹7 LPA | TCS Prime — ₹9 LPA | Infosys SP — ₹8–9.5 LPA<br><br><strong style="color:var(--amber-light)">Premium for:</strong> LangChain/RAG, Kubernetes, Terraform, System Design, AWS Certified. Bengaluru pays 15–20% above national average.</div>
   </div>
 
   <div class="acc">
     <div class="acc-h" onclick="togAcc(this)"><div class="acc-q"><span>🤖</span>How to use AI tools for job search — step by step</div><span class="acc-arr">▼</span></div>
-    <div class="acc-b">
-      <strong style="color:var(--text)">1. Generate your prompt</strong> above. Be specific about your domain, skills, and what makes you unique.<br><br>
-      <strong style="color:var(--text)">2. Job Search prompt →</strong> open Claude.ai (enable Web Search) or Perplexity. Paste the prompt. Both search live job boards and return structured results with links.<br><br>
-      <strong style="color:var(--text)">3. Cold Email / LinkedIn DM →</strong> paste into Claude or ChatGPT. Always personalise by replacing [Company Name] with real research about that specific company's product or news.<br><br>
-      <strong style="color:var(--text)">4. Resume Review →</strong> paste your actual resume text into Claude after the prompt. Ask: "Here is my resume: [paste]. Now apply the review above." Get ATS score + rewrite suggestions instantly.<br><br>
-      <strong style="color:var(--text)">5. Interview Prep →</strong> tell Claude: "Act as a mock interviewer. Ask me one question at a time and give feedback after each answer." Do 2–3 full sessions before any real interview.
-    </div>
+    <div class="acc-b"><strong style="color:var(--text)">1. Generate your prompt</strong> above. Be specific about your domain, skills, and what makes you unique.<br><br><strong style="color:var(--text)">2. Job Search prompt →</strong> open Claude.ai (enable Web Search) or Perplexity. Paste the prompt. Both search live job boards and return structured results with links.<br><br><strong style="color:var(--text)">3. Cold Email / LinkedIn DM →</strong> paste into Claude or ChatGPT. Always personalise by replacing [Company Name] with real research about that specific company.<br><br><strong style="color:var(--text)">4. Resume Review →</strong> paste your actual resume text into Claude after the prompt. Ask: "Here is my resume: [paste]. Now apply the review above."<br><br><strong style="color:var(--text)">5. Interview Prep →</strong> tell Claude: "Act as a mock interviewer. Ask me one question at a time and give feedback after each answer."</div>
   </div>
 
 </main>
@@ -989,15 +588,15 @@ footer a:hover{color:var(--blue-light)}
 </footer>
 
 <script>
-// ─── DATA ───────────────────────────────────────────────────────
+// ── DATA ─────────────────────────────────────────────────────────
 const ROLES = {
-  all:   ['ML Engineer','AI Engineer','Data Scientist','NLP Engineer','GenAI Developer','Python Developer','LLM Engineer','Full Stack Developer','Frontend Developer','Backend Developer','React Developer','Node.js Developer','DevOps Engineer','Cloud Engineer','AWS Engineer','Site Reliability Engineer (SRE)','IT Support Engineer','QA / Test Engineer','Automation Tester','IT Analyst','Mobile Developer (Android/iOS)','Flutter Developer','UI/UX Designer','Cybersecurity Analyst','Data Analyst','Software Engineer'],
-  ml:    ['ML Engineer','AI Engineer','Data Scientist','NLP Engineer','GenAI Developer','Python Developer','LLM Engineer','Data Analyst','AI Research Intern','MLOps Engineer'],
-  web:   ['Full Stack Developer','Frontend Developer','Backend Developer','React Developer','Node.js Developer','Angular Developer','Next.js Developer','Vue.js Developer','PHP Developer','Django/Flask Developer'],
-  devops:['DevOps Engineer','Cloud Engineer','AWS Engineer','Site Reliability Engineer (SRE)','Platform Engineer','Infrastructure Engineer','Kubernetes / Docker Engineer','CI/CD Engineer','Azure DevOps Engineer','GCP Engineer'],
-  it:    ['IT Support Engineer','QA / Test Engineer','Automation Tester','IT Analyst','System Administrator','Network Engineer','Database Administrator (DBA)','IT Helpdesk','Business Analyst','ERP Consultant'],
-  mobile:['Mobile Developer (Android/iOS)','Flutter Developer','React Native Developer','iOS Developer (Swift)','Android Developer (Kotlin)','UI/UX Designer','Product Designer','Figma Designer'],
-  cyber: ['Cybersecurity Analyst','Penetration Tester','SOC Analyst','Network Security Engineer','Cloud Security Engineer','Application Security Engineer','Bug Bounty Hunter','Information Security Analyst'],
+  all:    ['ML Engineer','AI Engineer','Data Scientist','NLP Engineer','GenAI Developer','Python Developer','LLM Engineer','Full Stack Developer','Frontend Developer','Backend Developer','React Developer','Node.js Developer','DevOps Engineer','Cloud Engineer','AWS Engineer','Site Reliability Engineer (SRE)','IT Support Engineer','QA / Test Engineer','Automation Tester','IT Analyst','Mobile Developer (Android/iOS)','Flutter Developer','UI/UX Designer','Cybersecurity Analyst','Data Analyst','Software Engineer'],
+  ml:     ['ML Engineer','AI Engineer','Data Scientist','NLP Engineer','GenAI Developer','Python Developer','LLM Engineer','Data Analyst','AI Research Intern','MLOps Engineer'],
+  web:    ['Full Stack Developer','Frontend Developer','Backend Developer','React Developer','Node.js Developer','Angular Developer','Next.js Developer','Vue.js Developer','PHP Developer','Django/Flask Developer'],
+  devops: ['DevOps Engineer','Cloud Engineer','AWS Engineer','Site Reliability Engineer (SRE)','Platform Engineer','Infrastructure Engineer','Kubernetes / Docker Engineer','CI/CD Engineer','Azure DevOps Engineer','GCP Engineer'],
+  it:     ['IT Support Engineer','QA / Test Engineer','Automation Tester','IT Analyst','System Administrator','Network Engineer','Database Administrator (DBA)','IT Helpdesk','Business Analyst','ERP Consultant'],
+  mobile: ['Mobile Developer (Android/iOS)','Flutter Developer','React Native Developer','iOS Developer (Swift)','Android Developer (Kotlin)','UI/UX Designer','Product Designer','Figma Designer'],
+  cyber:  ['Cybersecurity Analyst','Penetration Tester','SOC Analyst','Network Security Engineer','Cloud Security Engineer','Application Security Engineer','Bug Bounty Hunter','Information Security Analyst'],
 };
 const PLATS = ['LinkedIn','Naukri','Internshala','Glassdoor','Wellfound','Cutshort','Hirist','Instahyre','Unstop / Cuvette','Freshersworld','Indeed','Foundit','Apna','Turing / Toptal','Upwork','NCS (Govt)','Google Jobs (jobs.google.com)','TCS NextStep','Infosys Careers','Wipro Careers'];
 const MODES = ['Remote','Hybrid','On-site'];
@@ -1008,106 +607,187 @@ const PT_DESCS = {
   dm:        'Generates 3 toned LinkedIn DMs (warm / project hook / direct) to send to recruiters or founders.',
   resume:    'Gives you an ATS score, recruiter 6-second scan test, and targeted rewrite suggestions.',
   interview: 'Runs a full interactive mock interview with feedback after each answer, tailored to your role.',
-  salary:    'Provides salary benchmarks and scripts for answering "What's your expectation?" as a fresher.',
+  salary:    'Provides salary benchmarks and scripts for answering "What\'s your expectation?" as a fresher.',
 };
 const PT_FILES = {jobs:'job_search_prompt.txt',email:'cold_email_prompt.txt',dm:'linkedin_dm_prompt.txt',resume:'resume_review_prompt.txt',interview:'interview_prep_prompt.txt',salary:'salary_prompt.txt'};
 
-// ─── STATE ──────────────────────────────────────────────────────
-let utype = 'fresher', cat = 'all', ptype = 'jobs';
-let roleState = new Set([0,1,2,3,4,5]);
-let modeState = new Set([0,1,2]);
-let platState = new Set([0,1,2,3,4,5,6,7,8]);
+// ── STATE ─────────────────────────────────────────────────────────
+let utype    = 'fresher';
+let cat      = 'all';
+let ptype    = 'jobs';
+let roleState = new Set();
+let modeState = new Set([0, 1, 2]);
+let platState = new Set([0, 1, 2, 3, 4, 5, 6, 7, 8]);
 
-// ─── INIT CHIPS ─────────────────────────────────────────────────
-function mkChips(el, items, state, cls='') {
+// ── THEME TOGGLE ──────────────────────────────────────────────────
+function toggleTheme() {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-btn').textContent = isDark ? '🌙' : '☀️';
+}
+
+// ── CHIP FACTORY ──────────────────────────────────────────────────
+function mkChips(el, items, state, colorClass) {
   el.innerHTML = '';
-  items.forEach((label, i) => {
+  items.forEach(function(label, i) {
     const c = document.createElement('span');
-    c.className = 'chip' + (state.has(i) ? ' on' + (cls ? ' '+cls : '') : '');
+    c.className = 'chip' + (state.has(i) ? ' on' + (colorClass ? ' ' + colorClass : '') : '');
     c.textContent = label;
-    c.onclick = () => {
-      state.has(i) ? state.delete(i) : state.add(i);
-      c.classList.toggle('on', state.has(i));
-      if (cls) { c.classList.toggle(cls, state.has(i)); }
+    c.addEventListener('click', function() {
+      if (state.has(i)) {
+        state.delete(i);
+        c.classList.remove('on');
+        if (colorClass) c.classList.remove(colorClass);
+      } else {
+        state.add(i);
+        c.classList.add('on');
+        if (colorClass) c.classList.add(colorClass);
+      }
       calcStr();
-    };
+    });
     el.appendChild(c);
   });
 }
 
 function initRoleChips() {
   const items = ROLES[cat] || ROLES.all;
-  roleState = new Set(items.slice(0, Math.min(6, items.length)).map((_, i) => i));
-  mkChips(document.getElementById('roles-chips'), items, roleState);
+  roleState = new Set();
+  // pre-select first 6
+  for (let i = 0; i < Math.min(6, items.length); i++) roleState.add(i);
+  mkChips(document.getElementById('roles-chips'), items, roleState, '');
+  calcStr();
 }
+
 function initAll() {
   initRoleChips();
   mkChips(document.getElementById('mode-chips'), MODES, modeState, 'ca');
   mkChips(document.getElementById('plat-chips'), PLATS, platState, 'cg');
   calcStr();
 }
+
 initAll();
 
-// ─── SELECTORS ──────────────────────────────────────────────────
+// ── USER TYPE ─────────────────────────────────────────────────────
 function selUT(el) {
-  document.querySelectorAll('.ut').forEach(u => { u.classList.remove('sel'); u.querySelector('.ut-chk').textContent = ''; });
-  el.classList.add('sel'); el.querySelector('.ut-chk').textContent = '✓';
+  document.querySelectorAll('.ut').forEach(function(u) {
+    u.classList.remove('sel');
+    u.querySelector('.ut-chk').textContent = '';
+  });
+  el.classList.add('sel');
+  el.querySelector('.ut-chk').textContent = '✓';
   utype = el.dataset.t;
 }
 
+// ── CATEGORY TABS ─────────────────────────────────────────────────
+const CAT_COLORS = {
+  all:    { bg: 'linear-gradient(135deg,#3b82f6,#8b5cf6)', border: 'transparent', text: '#ffffff' },
+  ml:     { bg: 'rgba(59,130,246,.15)',  border: '#3b82f680', text: '#3b82f6' },
+  web:    { bg: 'rgba(16,185,129,.15)', border: '#10b98180', text: '#10b981' },
+  devops: { bg: 'rgba(245,158,11,.15)', border: '#f59e0b80', text: '#f59e0b' },
+  it:     { bg: 'rgba(139,92,246,.15)', border: '#8b5cf680', text: '#8b5cf6' },
+  mobile: { bg: 'rgba(236,72,153,.15)', border: '#ec489980', text: '#ec4899' },
+  cyber:  { bg: 'rgba(6,182,212,.15)',  border: '#06b6d480', text: '#06b6d4' },
+};
+
 function selCat(el) {
-  document.querySelectorAll('.ct').forEach(c => {
+  // Reset all tabs
+  document.querySelectorAll('.ct').forEach(function(c) {
     c.classList.remove('sel');
-    c.style.background = ''; c.style.borderColor = '';  c.style.color = '';
+    c.style.background   = '';
+    c.style.borderColor  = '';
+    c.style.color        = '';
   });
+
   el.classList.add('sel');
-  if (el.dataset.cat === 'all') { el.style.background = 'linear-gradient(135deg,#3b82f6,#8b5cf6)'; el.style.borderColor = 'transparent'; el.style.color = '#fff'; }
-  else {
-    const cc = el.querySelector('.ct-dot').style.background;
-    el.style.background = cc + '18'; el.style.borderColor = cc + '60'; el.style.color = cc;
-  }
+  const cc = CAT_COLORS[el.dataset.cat] || CAT_COLORS.all;
+  el.style.background  = cc.bg;
+  el.style.borderColor = cc.border;
+  el.style.color       = cc.text;
+
   cat = el.dataset.cat;
   initRoleChips();
 }
 
+// Apply initial style to the "All Domains" button
+(function() {
+  const firstCt = document.querySelector('.ct.sel');
+  if (firstCt) {
+    const cc = CAT_COLORS[firstCt.dataset.cat] || CAT_COLORS.all;
+    firstCt.style.background  = cc.bg;
+    firstCt.style.borderColor = cc.border;
+    firstCt.style.color       = cc.text;
+  }
+})();
+
+// ── PROMPT TYPE TABS ──────────────────────────────────────────────
 function selPT(el) {
-  document.querySelectorAll('.pt').forEach(p => p.classList.remove('sel'));
-  el.classList.add('sel'); ptype = el.dataset.pt;
-  document.getElementById('pt-desc').textContent = PT_DESCS[ptype];
-  document.getElementById('out-fn').textContent = PT_FILES[ptype];
-  ['ex-email','ex-dm','ex-interview'].forEach(id => document.getElementById(id).style.display = 'none');
-  const map = {email:'ex-email',dm:'ex-dm',interview:'ex-interview'};
+  document.querySelectorAll('.pt').forEach(function(p) { p.classList.remove('sel'); });
+  el.classList.add('sel');
+  ptype = el.dataset.pt;
+  document.getElementById('pt-desc').textContent = PT_DESCS[ptype] || '';
+  document.getElementById('out-fn').textContent  = PT_FILES[ptype] || 'prompt.txt';
+
+  // hide all extra inputs
+  ['ex-email', 'ex-dm', 'ex-interview'].forEach(function(id) {
+    document.getElementById(id).style.display = 'none';
+  });
+  const map = { email: 'ex-email', dm: 'ex-dm', interview: 'ex-interview' };
   if (map[ptype]) document.getElementById(map[ptype]).style.display = 'block';
 }
 
-// ─── SKILLS ─────────────────────────────────────────────────────
+// ── SKILL ROWS ────────────────────────────────────────────────────
 function addSk() {
   const list = document.getElementById('skills-list');
-  const d = document.createElement('div'); d.className = 'skrow';
-  d.innerHTML = `<input placeholder="Skill" oninput="calcStr()"/><div class="lbs"><button class="lb" onclick="setL(this,'b')">Beg</button><button class="lb" onclick="setL(this,'i')">Int</button><button class="lb" onclick="setL(this,'a')">Adv</button></div><button class="rm" onclick="rmSk(this)">×</button>`;
-  list.appendChild(d); d.querySelector('input').focus();
+  const d = document.createElement('div');
+  d.className = 'skrow';
+  d.innerHTML = '<input placeholder="Skill" oninput="calcStr()"/>'
+    + '<div class="lbs">'
+    + '<button class="lb" onclick="setL(this,\'b\')">Beg</button>'
+    + '<button class="lb i" onclick="setL(this,\'i\')">Int</button>'
+    + '<button class="lb" onclick="setL(this,\'a\')">Adv</button>'
+    + '</div>'
+    + '<button class="rm" onclick="rmSk(this)">×</button>';
+  list.appendChild(d);
+  d.querySelector('input').focus();
 }
-function rmSk(btn) { if (document.querySelectorAll('.skrow').length > 1) btn.closest('.skrow').remove(); }
+
+function rmSk(btn) {
+  if (document.querySelectorAll('.skrow').length > 1) {
+    btn.closest('.skrow').remove();
+    calcStr();
+  }
+}
+
 function setL(btn, lvl) {
-  const cls = {b:'b',i:'i',a:'a'};
-  btn.closest('.lbs').querySelectorAll('.lb').forEach(b => b.className = 'lb');
-  btn.classList.add(cls[lvl]);
+  btn.closest('.lbs').querySelectorAll('.lb').forEach(function(b) {
+    b.className = 'lb';
+  });
+  btn.classList.add(lvl); // adds 'b', 'i', or 'a'
 }
+
 function getSkills() {
-  return [...document.querySelectorAll('.skrow')].map(r => {
-    const v = r.querySelector('input').value.trim(); if (!v) return null;
-    const active = r.querySelector('.lb.b,.lb.i,.lb.a');
-    const lmap = {b:'Beginner',i:'Intermediate',a:'Advanced'};
-    const lname = active ? (Object.keys(lmap).find(k => active.classList.contains(k)) || 'i') : 'i';
-    return `${v} (${lmap[lname]})`;
+  const lvlMap = { b: 'Beginner', i: 'Intermediate', a: 'Advanced' };
+  return Array.from(document.querySelectorAll('.skrow')).map(function(r) {
+    const v = r.querySelector('input').value.trim();
+    if (!v) return null;
+    const active = r.querySelector('.lb.b, .lb.i, .lb.a');
+    let lvl = 'Intermediate';
+    if (active) {
+      if (active.classList.contains('b')) lvl = 'Beginner';
+      else if (active.classList.contains('i')) lvl = 'Intermediate';
+      else if (active.classList.contains('a')) lvl = 'Advanced';
+    }
+    return v + ' (' + lvl + ')';
   }).filter(Boolean);
 }
 
-// ─── STRENGTH BAR ────────────────────────────────────────────────
+// ── STRENGTH BAR ──────────────────────────────────────────────────
 function calcStr() {
-  let s = 0, msgs = [];
+  let s = 0;
+  const msgs = [];
   if (gv('f-name')) s += 15; else msgs.push('name');
-  if (gv('f-edu')) s += 15; else msgs.push('education');
+  if (gv('f-edu'))  s += 15; else msgs.push('education');
   const sk = getSkills();
   s += Math.min(sk.length * 7, 21);
   if (!sk.length) msgs.push('a skill');
@@ -1117,360 +797,367 @@ function calcStr() {
   if (platState.size > 0) s += 5;
   if (gv('f-exp')) s += 5;
   s = Math.min(s, 100);
+
   document.getElementById('sb-pct').textContent = s + '%';
   document.getElementById('sb-fill').style.width = s + '%';
-  let msg = s < 40 ? 'Add: ' + msgs.slice(0, 3).join(', ') + ' to improve your prompt quality.'
-    : s < 70 ? 'Good start! Add more projects or skills for a stronger prompt.'
-    : s < 90 ? 'Strong profile. Add a portfolio URL or more projects.'
-    : 'Excellent! Your prompt will be very detailed.';
+
+  let msg;
+  if (s < 40)      msg = 'Add: ' + msgs.slice(0, 3).join(', ') + ' to improve your prompt quality.';
+  else if (s < 70) msg = 'Good start! Add more projects or skills for a stronger prompt.';
+  else if (s < 90) msg = 'Strong profile. Add a portfolio URL or more projects.';
+  else             msg = 'Excellent! Your prompt will be very detailed.';
   document.getElementById('sb-msg').textContent = msg;
 }
-document.querySelectorAll('input,textarea').forEach(el => el.addEventListener('input', calcStr));
+
+// attach calcStr to all inputs/textareas that don't have inline oninput
+document.querySelectorAll('input, textarea').forEach(function(el) {
+  if (!el.getAttribute('oninput')) {
+    el.addEventListener('input', calcStr);
+  }
+});
 calcStr();
 
-// ─── PLATFORM FILTER ────────────────────────────────────────────
+// ── PLATFORM FILTER ───────────────────────────────────────────────
 function filtPlat(el) {
-  document.querySelectorAll('.pf').forEach(p => p.classList.remove('sel'));
+  document.querySelectorAll('.plat-filter .pf').forEach(function(p) { p.classList.remove('sel'); });
   el.classList.add('sel');
   const f = el.dataset.pf;
-  document.querySelectorAll('.plat').forEach(p => {
+  document.querySelectorAll('#plat-grid .plat').forEach(function(p) {
     const cats = (p.dataset.pcat || '').split(',');
     p.classList.toggle('hidden', f !== 'all' && !cats.includes(f));
   });
 }
 
-// ─── ACCORDION ──────────────────────────────────────────────────
-function togAcc(head) {
-  const acc = head.closest('.acc'), body = acc.querySelector('.acc-b');
-  acc.classList.toggle('open'); body.classList.toggle('open');
-}
-
-// ─── HELPERS ────────────────────────────────────────────────────
-function gv(id) { return (document.getElementById(id) || {}).value || ''; }
-function today() { return new Date().toLocaleDateString('en-IN', {day:'numeric',month:'long',year:'numeric'}); }
-function getSel(state, items) { return [...state].map(i => items[i]).join(', '); }
-
-function buildP() {
-  const roles_items = ROLES[cat] || ROLES.all;
-  return {
-    name: gv('f-name') || '[Your Name]',
-    edu: gv('f-edu') || '[Education]',
-    exp: gv('f-exp') || 'Fresher — no prior work experience',
-    skills: getSkills().join(', ') || '[Your skills]',
-    p1: gv('p1'), p2: gv('p2'), p3: gv('p3'),
-    gh: gv('f-gh'), port: gv('f-portfolio'),
-    roles: getSel(roleState, roles_items) || 'Software Engineer',
-    explvl: gv('f-expLvl') || '0–2 years',
-    modes: getSel(modeState, MODES) || 'Remote, Hybrid',
-    plats: getSel(platState, PLATS) || 'LinkedIn, Naukri, Internshala',
-    country: gv('f-country') || 'India',
-    city: gv('f-city'),
-    extra: gv('f-extra'),
-    domain: cat === 'all' ? 'Any tech domain' : {ml:'AI/ML/Data',web:'Web Development',devops:'DevOps/Cloud',it:'IT/QA/Support',mobile:'Mobile/UI-UX',cyber:'Cybersecurity'}[cat],
-    utype: {fresher:'Student/Fresher (0–1 yr)',junior:'Junior Professional (1–3 yrs)',switch:'Career Switcher',remote:'Remote/Global seeker'}[utype] || 'Fresher',
-    date: today(),
-  };
-}
-
-function projBlock(p) {
-  const lines = [];
-  if (p.p1) lines.push('  Project 1: ' + p.p1);
-  if (p.p2) lines.push('  Project 2: ' + p.p2);
-  if (p.p3) lines.push('  Project 3: ' + p.p3);
-  if (p.gh) lines.push('  GitHub    : ' + p.gh);
-  if (p.port) lines.push('  Portfolio : ' + p.port);
-  return lines.length ? lines.join('\n') : '  [Add your projects in the form above]';
-}
-
-// ─── PROMPT BUILDERS ────────────────────────────────────────────
-function pJobs(p) {
-  const loc = p.city ? `${p.city}, ${p.country}` : p.country;
-  return `You are a job search assistant with real-time web access.
-Today's date : ${p.date}
-
-══════════════════════════════════════════
-  CANDIDATE PROFILE
-══════════════════════════════════════════
-Name            : ${p.name}
-Profile Type    : ${p.utype}
-Education       : ${p.edu}
-Work Experience : ${p.exp}
-Target Domain   : ${p.domain}
-
-Skills & Proficiency:
-  ${p.skills}
-
-Projects & Portfolio:
-${projBlock(p)}
-
-══════════════════════════════════════════
-  JOB SEARCH PARAMETERS
-══════════════════════════════════════════
-Target Roles        : ${p.roles}
-Experience Required : ${p.explvl}
-Work Mode           : ${p.modes}
-Location            : ${loc}
-Platforms to search : ${p.plats}
-${p.extra ? 'Additional Filters   : ' + p.extra : ''}
-
-══════════════════════════════════════════
-  YOUR TASK
-══════════════════════════════════════════
-1. Search the specified platforms RIGHT NOW for live, currently active
-   job listings that match this candidate's profile and domain.
-
-2. Prioritise jobs posted in the LAST 7–14 DAYS.
-
-3. Return 8–10 results in this exact table format:
-
-   Job Title | Company | City/Mode | Exp Req | Posted | Why I Match | Apply Link
-
-4. Rules per listing:
-   ✓ Explain WHY the candidate matches — cite specific skills/projects.
-   ✓ Provide a real, working apply URL when possible.
-   ✗ If URL can't be confirmed → write "Search manually on [platform]"
-   ✗ Do NOT fabricate job listings, companies, or URLs.
-
-5. After the table:
-   → Name 3 companies actively hiring for ${p.domain} roles in ${p.country} right now,
-     with one specific reason WHY this candidate is a strong fit for each.
-   → Give 2 personalised application tips based on the candidate's strongest differentiators.`;
-}
-
-function pEmail(p) {
-  const co = gv('ce-co') || '[Company Name]', rec = gv('ce-role') || 'the Hiring Manager';
-  return `Act as an expert career coach and professional copywriter.
-Today: ${p.date} | Candidate domain: ${p.domain}
-
-Write a compelling cold outreach email for this candidate:
-
-CANDIDATE:
-- Name      : ${p.name}
-- Background: ${p.utype}
-- Education : ${p.edu}
-- Skills    : ${p.skills}
-- Top project: ${p.p1 || '[candidate project]'}
-${p.gh ? '- GitHub    : ' + p.gh : ''}
-
-TARGET:
-- Company   : ${co}
-- Recipient : ${rec}
-- Interested in: ${p.roles}
-
-EMAIL RULES:
-1. Subject line — specific, <9 words, NOT "Job Application" or "Opportunity"
-2. Opening — mention something real about ${co} (product, funding, news, blog post)
-   → Leave a [PERSONALISE: ___] placeholder for the candidate to fill in
-3. Body (3–4 sentences) — connect ONE specific project/skill to ${co}'s actual problem
-4. CTA — one low-friction ask (15-min call OR feedback on portfolio)
-5. Sign-off — professional; include GitHub/portfolio as placeholders
-6. Tone — confident but not arrogant, human, not AI-sounding
-7. Length — under 200 words total
-
-ALSO PROVIDE:
-→ 3-bullet personalisation checklist before sending
-→ Follow-up email template (for 5–7 days of no response)
-→ Subject line A/B test: 2 alternate subject line options`;
-}
-
-function pDM(p) {
-  const dmn = gv('dm-name') || '[Recruiter Name]', dmr = gv('dm-role') || '[Their Role at Company]';
-  return `Act as a LinkedIn messaging expert. Write personalised LinkedIn DMs.
-
-SENDER:
-- Name    : ${p.name}
-- Profile : ${p.utype}
-- Domain  : ${p.domain}
-- Top skill: ${getSkills()[0] || p.skills.split(',')[0] || 'software development'}
-- Best project: ${p.p1 || '[project]'}
-
-RECIPIENT:
-- Name : ${dmn}
-- Role : ${dmr}
-
-TARGET ROLES: ${p.roles}
-
-Write 3 DM versions — each UNDER 75 WORDS:
-
-▸ Version A — "Warm opener" (lead with their work/company, genuine compliment)
-▸ Version B — "Project hook" (lead with one specific achievement or project)
-▸ Version C — "Direct ask" (honest fresher approach — works well in India)
-
-DM RULES:
-✓ Start with their name
-✓ One genuine, specific compliment about their work/company
-✓ One sentence about candidate's most impressive thing
-✓ One clear, low-friction ask (not "can I pick your brain")
-✗ No "I hope this message finds you well"
-✗ No generic opener
-
-After 3 versions, list 5 LinkedIn DM tips specifically for freshers in India 2026.`;
-}
-
-function pResume(p) {
-  return `Act as a senior tech recruiter AND ATS system expert in the Indian job market.
-Candidate domain: ${p.domain} | Date: ${p.date}
-
-Review this candidate's profile for roles: ${p.roles}
-
-CANDIDATE:
-- Name       : ${p.name}
-- Education  : ${p.edu}
-- Experience : ${p.exp}
-- Skills     : ${p.skills}
-- Projects:
-${projBlock(p)}
-
-STRUCTURED REVIEW:
-
-1. ATS SCORE (out of 100)
-   - Keyword match % for "${p.domain}" roles
-   - Which keywords are missing that recruiters search for
-   - Format/parsing issues to flag
-
-2. RECRUITER 6-SECOND SCAN TEST
-   - What stands out immediately?
-   - What's buried that should be front and centre?
-   - What would make a recruiter skip this resume?
-
-3. SKILL GAPS for "${p.roles.split(',')[0]}" role
-   - Missing skills (ranked: critical / nice-to-have / long-term)
-   - Which gaps can be closed in 1–4 weeks?
-
-4. TOP 3 BULLET REWRITES
-   - Rewrite the 3 weakest project bullets using STAR format + quantified impact
-
-5. VERDICT
-   - Shortlist probability: Low / Medium / High
-   - Single most impactful change to make TODAY
-   - One resource (course/project/cert) to add within 30 days`;
-}
-
-function pInterview(p) {
-  const co = gv('iv-co') || 'a tech company', rnd = gv('iv-rnd') || 'Technical Round';
-  return `Act as an expert technical interviewer at ${co}.
-Conduct a realistic mock ${rnd} for this candidate.
-Date: ${p.date}
-
-CANDIDATE:
-- Profile : ${p.utype}
-- Domain  : ${p.domain}
-- Education: ${p.edu}
-- Skills  : ${p.skills}
-- Projects:
-${projBlock(p)}
-- Target role: ${p.roles.split(',')[0] || 'Software Engineer'}
-
-START THE INTERVIEW NOW.
-Ask questions ONE AT A TIME. Wait for the candidate's answer before continuing.
-After each answer, provide brief feedback (1–2 lines) before the next question.
-
-QUESTION BANK (draw from based on domain "${p.domain}"):
-[TECHNICAL]
-- Core concepts for: ${p.skills.split(',').slice(0, 3).join(', ')}
-- Deep dive on: ${p.p1 ? p.p1.split('–')[0].trim() : 'their best project'}
-- System design question appropriate for ${p.explvl} level
-- 1 live coding / debugging problem (medium difficulty)
-- Domain-specific: ${p.domain === 'DevOps/Cloud' ? 'CI/CD pipeline design' : p.domain === 'Web Development' ? 'REST API design + state management' : p.domain === 'Cybersecurity' ? 'threat modelling scenario' : 'ML model selection and evaluation'}
-
-[HR / BEHAVIOURAL]
-- Tell me about yourself (60 seconds)
-- Why this role / company?
-- Describe your toughest technical challenge
-- Where do you see yourself in 2–3 years?
-
-[POST-INTERVIEW DEBRIEF]
-After all questions, provide:
-→ Overall score /10 with reasoning
-→ Top 3 strengths demonstrated
-→ Top 3 areas to improve before the real interview
-→ 2 specific resources to study this week`;
-}
-
-function pSalary(p) {
-  const loc = p.city || p.country;
-  return `Act as a compensation expert for the Indian tech market.
-Domain: ${p.domain} | Date: ${p.date}
-
-CANDIDATE:
-- Profile  : ${p.utype}
-- Education: ${p.edu}
-- Skills   : ${p.skills}
-- Roles    : ${p.roles}
-- Location : ${loc}
-
-TASK:
-
-1. SALARY BENCHMARKS — ${p.domain} roles in ${loc} (2026 data)
-   For each role type, provide:
-   ┌─────────────────────────────────────────┐
-   │ Company Type     │ Fresher Range (LPA) │
-   ├─────────────────────────────────────────┤
-   │ MNC / Large IT   │ ₹X – ₹Y LPA        │
-   │ Mid-size startup │ ₹X – ₹Y LPA        │
-   │ Early-stage      │ ₹X – ₹Y LPA        │
-   │ Remote (USD)     │ $X – $Y / year      │
-   └─────────────────────────────────────────┘
-   Flag which specific skills from my profile command the highest premium.
-
-2. SALARY EXPECTATION SCRIPTS — What to say in an interview
-   Write 3 versions for a ${p.utype}:
-   ▸ Safe answer (avoid losing the offer)
-   ▸ Confident answer (push for market rate)
-   ▸ Negotiation answer (when you have a competing offer)
-
-3. NEGOTIATION TIPS
-   - When to negotiate (and when NOT to as a fresher)
-   - Non-salary benefits worth negotiating (ESOPs, WFH days, learning budget, joining bonus)
-   - How to respond to "your expectation is too high"
-
-4. OFFER LETTER RED FLAGS (for Indian freshers)
-   - Training bond / clawback clauses to watch out for
-   - Gross CTC vs net in-hand confusion
-   - Variable pay / performance bonus traps
-   - How to calculate actual in-hand from CTC`;
-}
-
-const BUILDERS = {jobs:pJobs,email:pEmail,dm:pDM,resume:pResume,interview:pInterview,salary:pSalary};
-
-// ─── GENERATE ────────────────────────────────────────────────────
-function generate() {
-  const p = buildP();
-  const text = (BUILDERS[ptype] || pJobs)(p);
-  document.getElementById('pout').textContent = text;
-  const sec = document.getElementById('out-sec');
-  sec.style.display = 'block';
-  document.getElementById('cp-btn').textContent = 'Copy';
-  document.getElementById('cp-btn').className = 'cp';
-  setTimeout(() => sec.scrollIntoView({behavior:'smooth',block:'start'}), 60);
-}
-
-function copyOut() {
-  navigator.clipboard.writeText(document.getElementById('pout').textContent).then(() => {
-    const btn = document.getElementById('cp-btn');
-    btn.textContent = '✓ Copied'; btn.className = 'cp ok';
-    setTimeout(() => { btn.textContent = 'Copy'; btn.className = 'cp'; }, 2500);
-  });
-}
-
-// ─── MNC FILTER ──────────────────────────────────────────────────
+// ── MNC FILTER ────────────────────────────────────────────────────
 function filtMnc(el) {
-  document.querySelectorAll('#mnc-filter .pf').forEach(p => p.classList.remove('sel'));
+  document.querySelectorAll('#mnc-filter .pf').forEach(function(p) { p.classList.remove('sel'); });
   el.classList.add('sel');
   const f = el.dataset.mf;
-  document.querySelectorAll('.mnc-card').forEach(c => {
+  document.querySelectorAll('.mnc-card').forEach(function(c) {
     const cats = (c.dataset.mc || '').split(',');
     c.classList.toggle('mhidden', f !== 'all' && !cats.includes(f));
   });
 }
 
-// ─── GOOGLE QUERY COPY ───────────────────────────────────────────
+// ── ACCORDIONS ────────────────────────────────────────────────────
+function togAcc(head) {
+  const acc  = head.closest('.acc');
+  const body = acc.querySelector('.acc-b');
+  acc.classList.toggle('open');
+  body.classList.toggle('open');
+}
+
+// ── HELPERS ───────────────────────────────────────────────────────
+function gv(id) {
+  const el = document.getElementById(id);
+  return el ? el.value.trim() : '';
+}
+
+function today() {
+  return new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function getSel(state, items) {
+  return Array.from(state).map(function(i) { return items[i]; }).filter(Boolean).join(', ');
+}
+
+function buildP() {
+  const roleItems = ROLES[cat] || ROLES.all;
+  const domainMap = { ml: 'AI/ML/Data', web: 'Web Development', devops: 'DevOps/Cloud', it: 'IT/QA/Support', mobile: 'Mobile/UI-UX', cyber: 'Cybersecurity' };
+  const utypeMap  = { fresher: 'Student/Fresher (0–1 yr)', junior: 'Junior Professional (1–3 yrs)', switch: 'Career Switcher', remote: 'Remote/Global seeker' };
+  return {
+    name:    gv('f-name')      || '[Your Name]',
+    edu:     gv('f-edu')       || '[Education]',
+    exp:     gv('f-exp')       || 'Fresher — no prior work experience',
+    skills:  getSkills().join(', ') || '[Your skills]',
+    p1:      gv('p1'),
+    p2:      gv('p2'),
+    p3:      gv('p3'),
+    gh:      gv('f-gh'),
+    port:    gv('f-portfolio'),
+    roles:   getSel(roleState, roleItems) || 'Software Engineer',
+    explvl:  gv('f-expLvl')    || '0–2 years',
+    modes:   getSel(modeState, MODES) || 'Remote, Hybrid',
+    plats:   getSel(platState, PLATS) || 'LinkedIn, Naukri, Internshala',
+    country: gv('f-country')   || 'India',
+    city:    gv('f-city'),
+    extra:   gv('f-extra'),
+    domain:  cat === 'all' ? 'Any tech domain' : (domainMap[cat] || 'Tech'),
+    utype:   utypeMap[utype]   || 'Fresher',
+    date:    today(),
+  };
+}
+
+function projBlock(p) {
+  const lines = [];
+  if (p.p1)   lines.push('  Project 1 : ' + p.p1);
+  if (p.p2)   lines.push('  Project 2 : ' + p.p2);
+  if (p.p3)   lines.push('  Project 3 : ' + p.p3);
+  if (p.gh)   lines.push('  GitHub    : ' + p.gh);
+  if (p.port) lines.push('  Portfolio : ' + p.port);
+  return lines.length ? lines.join('\n') : '  [Add your projects in the form above]';
+}
+
+// ── PROMPT BUILDERS ───────────────────────────────────────────────
+function pJobs(p) {
+  const loc = p.city ? p.city + ', ' + p.country : p.country;
+  return 'You are a job search assistant with real-time web access.\nToday\'s date : ' + p.date + '\n\n'
+    + '══════════════════════════════════════════\n  CANDIDATE PROFILE\n══════════════════════════════════════════\n'
+    + 'Name            : ' + p.name + '\n'
+    + 'Profile Type    : ' + p.utype + '\n'
+    + 'Education       : ' + p.edu + '\n'
+    + 'Work Experience : ' + p.exp + '\n'
+    + 'Target Domain   : ' + p.domain + '\n\n'
+    + 'Skills & Proficiency:\n  ' + p.skills + '\n\n'
+    + 'Projects & Portfolio:\n' + projBlock(p) + '\n\n'
+    + '══════════════════════════════════════════\n  JOB SEARCH PARAMETERS\n══════════════════════════════════════════\n'
+    + 'Target Roles        : ' + p.roles + '\n'
+    + 'Experience Required : ' + p.explvl + '\n'
+    + 'Work Mode           : ' + p.modes + '\n'
+    + 'Location            : ' + loc + '\n'
+    + 'Platforms to search : ' + p.plats + '\n'
+    + (p.extra ? 'Additional Filters  : ' + p.extra + '\n' : '')
+    + '\n══════════════════════════════════════════\n  YOUR TASK\n══════════════════════════════════════════\n'
+    + '1. Search the specified platforms RIGHT NOW for live, currently active\n'
+    + '   job listings that match this candidate\'s profile and domain.\n\n'
+    + '2. Prioritise jobs posted in the LAST 7–14 DAYS.\n\n'
+    + '3. Return 8–10 results in this exact table format:\n\n'
+    + '   Job Title | Company | City/Mode | Exp Req | Posted | Why I Match | Apply Link\n\n'
+    + '4. Rules per listing:\n'
+    + '   ✓ Explain WHY the candidate matches — cite specific skills/projects.\n'
+    + '   ✓ Provide a real, working apply URL when possible.\n'
+    + '   ✗ If URL can\'t be confirmed → write "Search manually on [platform]"\n'
+    + '   ✗ Do NOT fabricate job listings, companies, or URLs.\n\n'
+    + '5. After the table:\n'
+    + '   → Name 3 companies actively hiring for ' + p.domain + ' roles in ' + p.country + ' right now,\n'
+    + '     with one specific reason WHY this candidate is a strong fit for each.\n'
+    + '   → Give 2 personalised application tips based on the candidate\'s strongest differentiators.';
+}
+
+function pEmail(p) {
+  const co  = gv('ce-co')   || '[Company Name]';
+  const rec = gv('ce-role') || 'the Hiring Manager';
+  return 'Act as an expert career coach and professional copywriter.\nToday: ' + p.date + ' | Candidate domain: ' + p.domain + '\n\n'
+    + 'Write a compelling cold outreach email for this candidate:\n\n'
+    + 'CANDIDATE:\n'
+    + '- Name       : ' + p.name + '\n'
+    + '- Background : ' + p.utype + '\n'
+    + '- Education  : ' + p.edu + '\n'
+    + '- Skills     : ' + p.skills + '\n'
+    + '- Top project: ' + (p.p1 || '[candidate project]') + '\n'
+    + (p.gh ? '- GitHub     : ' + p.gh + '\n' : '')
+    + '\nTARGET:\n'
+    + '- Company    : ' + co + '\n'
+    + '- Recipient  : ' + rec + '\n'
+    + '- Interested in: ' + p.roles + '\n\n'
+    + 'EMAIL RULES:\n'
+    + '1. Subject line — specific, <9 words, NOT "Job Application" or "Opportunity"\n'
+    + '2. Opening — mention something real about ' + co + ' (product, funding, news, blog post)\n'
+    + '   → Leave a [PERSONALISE: ___] placeholder for the candidate to fill in\n'
+    + '3. Body (3–4 sentences) — connect ONE specific project/skill to ' + co + '\'s actual problem\n'
+    + '4. CTA — one low-friction ask (15-min call OR feedback on portfolio)\n'
+    + '5. Sign-off — professional; include GitHub/portfolio as placeholders\n'
+    + '6. Tone — confident but not arrogant, human, not AI-sounding\n'
+    + '7. Length — under 200 words total\n\n'
+    + 'ALSO PROVIDE:\n'
+    + '→ 3-bullet personalisation checklist before sending\n'
+    + '→ Follow-up email template (for 5–7 days of no response)\n'
+    + '→ Subject line A/B test: 2 alternate subject line options';
+}
+
+function pDM(p) {
+  const dmn = gv('dm-name') || '[Recruiter Name]';
+  const dmr = gv('dm-role') || '[Their Role at Company]';
+  return 'Act as a LinkedIn messaging expert. Write personalised LinkedIn DMs.\n\n'
+    + 'SENDER:\n'
+    + '- Name     : ' + p.name + '\n'
+    + '- Profile  : ' + p.utype + '\n'
+    + '- Domain   : ' + p.domain + '\n'
+    + '- Top skill: ' + (getSkills()[0] || p.skills.split(',')[0] || 'software development') + '\n'
+    + '- Best project: ' + (p.p1 || '[project]') + '\n\n'
+    + 'RECIPIENT:\n'
+    + '- Name : ' + dmn + '\n'
+    + '- Role : ' + dmr + '\n\n'
+    + 'TARGET ROLES: ' + p.roles + '\n\n'
+    + 'Write 3 DM versions — each UNDER 75 WORDS:\n\n'
+    + '▸ Version A — "Warm opener" (lead with their work/company, genuine compliment)\n'
+    + '▸ Version B — "Project hook" (lead with one specific achievement or project)\n'
+    + '▸ Version C — "Direct ask" (honest fresher approach — works well in India)\n\n'
+    + 'DM RULES:\n'
+    + '✓ Start with their name\n'
+    + '✓ One genuine, specific compliment about their work/company\n'
+    + '✓ One sentence about candidate\'s most impressive thing\n'
+    + '✓ One clear, low-friction ask (not "can I pick your brain")\n'
+    + '✗ No "I hope this message finds you well"\n'
+    + '✗ No generic opener\n\n'
+    + 'After 3 versions, list 5 LinkedIn DM tips specifically for freshers in India 2026.';
+}
+
+function pResume(p) {
+  return 'Act as a senior tech recruiter AND ATS system expert in the Indian job market.\n'
+    + 'Candidate domain: ' + p.domain + ' | Date: ' + p.date + '\n\n'
+    + 'Review this candidate\'s profile for roles: ' + p.roles + '\n\n'
+    + 'CANDIDATE:\n'
+    + '- Name       : ' + p.name + '\n'
+    + '- Education  : ' + p.edu + '\n'
+    + '- Experience : ' + p.exp + '\n'
+    + '- Skills     : ' + p.skills + '\n'
+    + '- Projects:\n' + projBlock(p) + '\n\n'
+    + 'STRUCTURED REVIEW:\n\n'
+    + '1. ATS SCORE (out of 100)\n'
+    + '   - Keyword match % for "' + p.domain + '" roles\n'
+    + '   - Which keywords are missing that recruiters search for\n'
+    + '   - Format/parsing issues to flag\n\n'
+    + '2. RECRUITER 6-SECOND SCAN TEST\n'
+    + '   - What stands out immediately?\n'
+    + '   - What\'s buried that should be front and centre?\n'
+    + '   - What would make a recruiter skip this resume?\n\n'
+    + '3. SKILL GAPS for "' + p.roles.split(',')[0] + '" role\n'
+    + '   - Missing skills (ranked: critical / nice-to-have / long-term)\n'
+    + '   - Which gaps can be closed in 1–4 weeks?\n\n'
+    + '4. TOP 3 BULLET REWRITES\n'
+    + '   - Rewrite the 3 weakest project bullets using STAR format + quantified impact\n\n'
+    + '5. VERDICT\n'
+    + '   - Shortlist probability: Low / Medium / High\n'
+    + '   - Single most impactful change to make TODAY\n'
+    + '   - One resource (course/project/cert) to add within 30 days';
+}
+
+function pInterview(p) {
+  const co  = gv('iv-co')  || 'a tech company';
+  const rnd = gv('iv-rnd') || 'Technical Round';
+  const domainQ = {
+    'DevOps/Cloud':    'CI/CD pipeline design',
+    'Web Development': 'REST API design + state management',
+    'Cybersecurity':   'threat modelling scenario',
+  };
+  const dq = domainQ[p.domain] || 'ML model selection and evaluation';
+  return 'Act as an expert technical interviewer at ' + co + '.\n'
+    + 'Conduct a realistic mock ' + rnd + ' for this candidate.\n'
+    + 'Date: ' + p.date + '\n\n'
+    + 'CANDIDATE:\n'
+    + '- Profile  : ' + p.utype + '\n'
+    + '- Domain   : ' + p.domain + '\n'
+    + '- Education: ' + p.edu + '\n'
+    + '- Skills   : ' + p.skills + '\n'
+    + '- Projects:\n' + projBlock(p) + '\n'
+    + '- Target role: ' + (p.roles.split(',')[0] || 'Software Engineer') + '\n\n'
+    + 'START THE INTERVIEW NOW.\n'
+    + 'Ask questions ONE AT A TIME. Wait for the candidate\'s answer before continuing.\n'
+    + 'After each answer, provide brief feedback (1–2 lines) before the next question.\n\n'
+    + 'QUESTION BANK (draw from based on domain "' + p.domain + '"):\n'
+    + '[TECHNICAL]\n'
+    + '- Core concepts for: ' + p.skills.split(',').slice(0, 3).join(', ') + '\n'
+    + '- Deep dive on: ' + (p.p1 ? p.p1.split('–')[0].trim() : 'their best project') + '\n'
+    + '- System design question appropriate for ' + p.explvl + ' level\n'
+    + '- 1 live coding / debugging problem (medium difficulty)\n'
+    + '- Domain-specific: ' + dq + '\n\n'
+    + '[HR / BEHAVIOURAL]\n'
+    + '- Tell me about yourself (60 seconds)\n'
+    + '- Why this role / company?\n'
+    + '- Describe your toughest technical challenge\n'
+    + '- Where do you see yourself in 2–3 years?\n\n'
+    + '[POST-INTERVIEW DEBRIEF]\n'
+    + 'After all questions, provide:\n'
+    + '→ Overall score /10 with reasoning\n'
+    + '→ Top 3 strengths demonstrated\n'
+    + '→ Top 3 areas to improve before the real interview\n'
+    + '→ 2 specific resources to study this week';
+}
+
+function pSalary(p) {
+  const loc = p.city || p.country;
+  return 'Act as a compensation expert for the Indian tech market.\n'
+    + 'Domain: ' + p.domain + ' | Date: ' + p.date + '\n\n'
+    + 'CANDIDATE:\n'
+    + '- Profile  : ' + p.utype + '\n'
+    + '- Education: ' + p.edu + '\n'
+    + '- Skills   : ' + p.skills + '\n'
+    + '- Roles    : ' + p.roles + '\n'
+    + '- Location : ' + loc + '\n\n'
+    + 'TASK:\n\n'
+    + '1. SALARY BENCHMARKS — ' + p.domain + ' roles in ' + loc + ' (2026 data)\n'
+    + '   For each role type provide: Company Type | Fresher Range (LPA)\n'
+    + '   MNC / Large IT | Mid-size startup | Early-stage | Remote (USD)\n'
+    + '   Flag which specific skills from my profile command the highest premium.\n\n'
+    + '2. SALARY EXPECTATION SCRIPTS — What to say in an interview\n'
+    + '   Write 3 versions for a ' + p.utype + ':\n'
+    + '   ▸ Safe answer (avoid losing the offer)\n'
+    + '   ▸ Confident answer (push for market rate)\n'
+    + '   ▸ Negotiation answer (when you have a competing offer)\n\n'
+    + '3. NEGOTIATION TIPS\n'
+    + '   - When to negotiate (and when NOT to as a fresher)\n'
+    + '   - Non-salary benefits worth negotiating (ESOPs, WFH days, learning budget, joining bonus)\n'
+    + '   - How to respond to "your expectation is too high"\n\n'
+    + '4. OFFER LETTER RED FLAGS (for Indian freshers)\n'
+    + '   - Training bond / clawback clauses to watch out for\n'
+    + '   - Gross CTC vs net in-hand confusion\n'
+    + '   - Variable pay / performance bonus traps\n'
+    + '   - How to calculate actual in-hand from CTC';
+}
+
+const BUILDERS = { jobs: pJobs, email: pEmail, dm: pDM, resume: pResume, interview: pInterview, salary: pSalary };
+
+// ── GENERATE ──────────────────────────────────────────────────────
+function generate() {
+  const p    = buildP();
+  const fn   = BUILDERS[ptype] || pJobs;
+  const text = fn(p);
+
+  document.getElementById('pout').textContent = text;
+
+  const sec = document.getElementById('out-sec');
+  sec.style.display = 'block';
+
+  // reset copy button
+  const btn = document.getElementById('cp-btn');
+  btn.textContent = 'Copy';
+  btn.className   = 'cp';
+
+  setTimeout(function() {
+    sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 60);
+}
+
+function copyOut() {
+  const text = document.getElementById('pout').textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const btn = document.getElementById('cp-btn');
+    btn.textContent = '✓ Copied';
+    btn.className   = 'cp ok';
+    setTimeout(function() {
+      btn.textContent = 'Copy';
+      btn.className   = 'cp';
+    }, 2500);
+  }).catch(function() {
+    // fallback for browsers without clipboard API
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  });
+}
+
+// ── GOOGLE QUERY COPY ─────────────────────────────────────────────
 function copyGQ(el) {
   const q = el.dataset.q;
-  navigator.clipboard.writeText(q).then(() => {
+  navigator.clipboard.writeText(q).then(function() {
     const btn = el.querySelector('.gq-copy');
-    btn.textContent = '✓ Copied!'; btn.classList.add('done');
-    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2000);
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('done');
+    setTimeout(function() {
+      btn.textContent = 'Copy';
+      btn.classList.remove('done');
+    }, 2000);
+  }).catch(function() {
+    const ta = document.createElement('textarea');
+    ta.value = q;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
   });
 }
 </script>
